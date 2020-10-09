@@ -1,0 +1,55 @@
+/**index.wxss**/
+/**最外部的view容器样式**/
+.external-container{
+  /**外部容器宽度 整屏**/
+  width: 750rpx;
+  /**居中显示**/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/**滑块视图样式**/
+.swiper{
+  height: 180px;
+}
+/**滑块视图中的图片样式**/
+.swiper-img{
+  width: 100%;
+}
+/**分类标题样式**/
+.classify-title{
+  /**字体样式**/
+  font-size: 14px;
+  font-weight: 700;
+  
+  /**左右边距**/
+  margin-top: 10px;
+  margin-left: 15rpx;
+}
+.classify-body{
+  margin-top: 10px;
+  margin-left: 15rpx;
+  display: flex;
+}
+.classify-item{
+  flex: 3;
+  /**相对定位 方便调整文字悬浮再图片上**/
+  position: relative;
+}
+.classify-item image{
+  width: 140rpx;
+  height: 140rpx;
+  /**圆角**/
+  border-radius: 10px;
+}
+.classify-item text{
+  font-size: medium;
+  color: #fff;
+  font-weight: 600;
+  /**调整文字位置再图片正中间**/
+  position: absolute;
+  top: 85rpx;
+  left: 70rpx;
+  transform: translate(-50%,-50%)
+}

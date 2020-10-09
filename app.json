@@ -1,0 +1,44 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/classify/classify",
+    "pages/publish/publish",
+    "pages/menulist/menulist",
+    "pages/menucontent/menucontent",
+    "pages/search/search"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#91d18b",
+    "navigationBarTitleText": "小小美食家",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor":"#91d18b",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "/icon/index.png",
+      "selectedIconPath": "/icon/index_active.png"
+    },{
+      "pagePath": "pages/classify/classify",
+      "text": "分类",
+      "iconPath": "/icon/classify.png",
+      "selectedIconPath": "/icon/classify_active.png"
+    },{
+      "pagePath": "pages/publish/publish",
+      "text": "发布",
+      "iconPath": "/icon/publish.png",
+      "selectedIconPath": "/icon/publish_active.png"
+    },{
+      "pagePath": "pages/mine/mine",
+      "text": "我的",
+      "iconPath": "/icon/mine.png",
+      "selectedIconPath": "/icon/mine_active.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,6 @@
+<!--搜索框-->
+<view class="search-view">
+  <navigator class="search-input" url="/pages/search/search" hover-class="navigator-hover" open-type="navigate">
+    🔍 搜索
+  </navigator>
+</view>

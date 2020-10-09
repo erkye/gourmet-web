@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="external-container">
+  <!--输入框组件开始 使用components里面的输入框组件-->
+  <searchInput></searchInput>
+  <!--输入框组件结束-->
+
+  <!--滑块视图区域-->
+  <view>
+    <!--滑块视图组件 indicator-dots 显示小点点 autoplay 开启自动播放 circular 循环衔接滑动-->
+    <swiper class="swiper" indicator-dots autoplay circular>
+      <!--遍历data中的视图url数组 普通字符数组 所以key值是本身-->
+      <block wx:for="{{swiperData}}" wx:key="item.id">
+        <swiper-item>
+          <!--遍历显示图片 src属性：图片地址 mode属性：aspectFill缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。-->
+          <image class="swiper-img" src="{{item.img}}" mode="aspectFill"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+<!--分类部分-->
+  <view>
+    <view class="classify-title">常用分类</view>
+    <view class="classify-body">
+      <view class="classify-item">
+        <image src="https://i.loli.net/2020/10/02/eoTmay9qS4LPOiV.jpg"></image>
+        <text>早餐</text>
+      </view>
+      <view class="classify-item">
+        <image src="https://i.loli.net/2020/10/02/dQANmJOS4loIE63.jpg"></image>
+        <text>午餐</text>
+      </view>
+      <view class="classify-item">
+        <image src="https://i.loli.net/2020/10/02/T9omkixczSULOX6.jpg"></image>
+        <text>晚餐</text>
+      </view>
+      <view class="classify-item">
+        <image src="https://i.loli.net/2020/10/02/iL8auWYkcbHGZFP.jpg"></image>
+        <text>夜宵</text>
+      </view>
+    </view>
+  </view>
+</view>
