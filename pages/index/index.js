@@ -14,7 +14,7 @@ Page({
   // 获取滑动视图的数据
   async getSwipperData(){
     // 从后端获取数据
-    const {data:response} = await http.get('/menu/recommend')
+    const {data:response} = await http.get('/index/recommend')
     console.log(response)
     // 获取数据成功
     if(response.code === 1000){

@@ -1,0 +1,6 @@
+/* 小程序中没有 <hr/> 最为替代样式 */
+.line{
+    width: 80%;
+    height: 2rpx;
+    background-color: #d9e4dd;
+}

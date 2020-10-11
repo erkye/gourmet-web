@@ -1,4 +1,6 @@
 /**index.wxss**/
+@import '../../style/util.wxss';
+
 /**最外部的view容器样式**/
 .external-container{
   /**外部容器宽度 整屏**/
@@ -17,12 +19,37 @@
 .swiper-img{
   width: 100%;
 }
+.classify{
+  padding-bottom: 20rpx;
+}
+/* 常用分类头部整体样式 */
+.classify-head{
+  display: flex;
+}
 /**分类标题样式**/
 .classify-title{
+  flex: 1;
+  /**字体样式**/
+  font-size: 15px;
+  font-weight: 700;
+  
+  /**左右边距**/
+  margin-top: 10px;
+  
+}
+/* 更多分类样式 */
+.classify-head navigator{
+  flex: 1;
   /**字体样式**/
   font-size: 14px;
   font-weight: 700;
-  
+  color: darkgray;
+  text-align: right;
+
+  /* 位置调整 */
+  position: relative;
+  right: 20rpx;
+
   /**左右边距**/
   margin-top: 10px;
   margin-left: 15rpx;
@@ -37,11 +64,11 @@
   /**相对定位 方便调整文字悬浮再图片上**/
   position: relative;
 }
-.classify-item image{
-  width: 140rpx;
-  height: 140rpx;
+.classify-item view{
+  width: 160rpx;
+  height: 160rpx;
   /**圆角**/
-  border-radius: 10px;
+  border-radius: 25rpx;
 }
 .classify-item text{
   font-size: medium;
@@ -49,7 +76,18 @@
   font-weight: 600;
   /**调整文字位置再图片正中间**/
   position: absolute;
-  top: 85rpx;
-  left: 70rpx;
+  top: 80rpx;
+  left: 80rpx;
   transform: translate(-50%,-50%)
+}
+
+/* 最新佳作标题部分 */
+.update-title{
+  font-size: medium;
+  font-weight: 800;
+  text-align: center;
+  padding-top: 20rpx;
+}
+.update-body{
+  height: 100%;
 }

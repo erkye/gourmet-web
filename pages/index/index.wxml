@@ -19,25 +19,56 @@
   </view>
 
 <!--分类部分-->
-  <view>
-    <view class="classify-title">常用分类</view>
+  <view class="classify">
+    <view class="classify-head">
+      <view class="classify-title">常用分类</view>
+      <!-- 跳转到分类页面 注意分类页面在tabbar中已经配置 所以open-type 需要设置为switchTab 否则无法跳转 -->
+      <navigator url="/pages/classify/classify" open-type="switchTab">更多分类</navigator>
+    </view>
     <view class="classify-body">
-      <view class="classify-item">
+    <!-- 计划使用图片作为背景 图片加载耗时较长改为背景色 -->
+      <!-- <view class="classify-item">
         <image src="https://i.loli.net/2020/10/02/eoTmay9qS4LPOiV.jpg"></image>
+        <text>早餐</text>
+      </view> -->
+      <view class="classify-item">
+        <view style="background-color: #ee6f57"></view>
         <text>早餐</text>
       </view>
       <view class="classify-item">
-        <image src="https://i.loli.net/2020/10/02/dQANmJOS4loIE63.jpg"></image>
+        <view style="background-color: #edc988"></view>
         <text>午餐</text>
       </view>
       <view class="classify-item">
-        <image src="https://i.loli.net/2020/10/02/T9omkixczSULOX6.jpg"></image>
+        <view style="background-color: #008891"></view>
         <text>晚餐</text>
       </view>
       <view class="classify-item">
-        <image src="https://i.loli.net/2020/10/02/iL8auWYkcbHGZFP.jpg"></image>
+        <view style="background-color: #81b214"></view>
         <text>夜宵</text>
       </view>
     </view>
   </view>
+<!-- 常用分类部分end -->
+<view class="line" style="width:100%;height: 10rpx"></view> 
+
+<!-- 最新佳作 -->
+<view>
+  <view class="update-title">◆◆最新佳作◆◆</view>
+
+  <!-- 最新佳作主体部分 -->
+  <!-- scroll-y：竖向滑动  scroll-top：竖向滚动条的位置 scroll-with-animatione：设置滚动条位置时启用动画-->
+  <!-- nable-back-to-top：安卓双击标题栏、ios点击顶部状态栏出发返回顶部 bindscrolltolower：页面下拉到底部时触发的事件-->
+  <!-- <scroll-view class="update-body" scroll-y scroll-top="0" scroll-with-animatione nable-back-to-top 
+    bindscrolltolower="">
+    
+  </scroll-view> -->
+
+  <view class="update-body">
+    
+  </view>
+</view>
+
+
+
 </view>
