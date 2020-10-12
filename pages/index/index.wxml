@@ -65,7 +65,16 @@
   </scroll-view> -->
 
   <view class="update-body">
-    
+    <view wx:for="{{latestMenu}}" wx:key="item.id" class="update-item">
+      <image src="{{item.img}}" mode="aspectFill" />
+      <view class="update-item-head">
+        <view class="update-item-title">{{item.title}}</view>
+        <view class="update-item-author">
+          <text class="iconfont icon-user" decode>{{item.nickname}}&nbsp;&nbsp;</text>
+        </view>
+      </view>
+      <view class="line" style="width:100%;height: 5rpx"></view>
+    </view>
   </view>
 </view>
 

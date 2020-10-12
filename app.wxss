@@ -1,4 +1,7 @@
 /**app.wxss**/
+/* 引入阿里图标 */
+@import '/style/icon.wxss';
+
 .container {
   height: 100%;
   display: flex;
