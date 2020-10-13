@@ -30,11 +30,13 @@
 .classify-title{
   flex: 1;
   /**字体样式**/
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   
   /**左右边距**/
   margin-top: 10px;
+  position: relative;
+  left: 20rpx;
   
 }
 /* 更多分类样式 */
@@ -60,25 +62,34 @@
   display: flex;
 }
 .classify-item{
-  flex: 3;
-  /**相对定位 方便调整文字悬浮再图片上**/
-  position: relative;
+  flex: 1;
+  
+  text-align: center;
 }
-.classify-item view{
+/* .classify-item view{
   width: 160rpx;
   height: 100rpx;
-  /**圆角**/
+  
   border-radius: 25rpx;
-}
-.classify-item text{
+} */
+/* .classify-item text{
   font-size: medium;
-  color: #fff;
+  color: #838383;
   font-weight: 600;
-  /**调整文字位置再图片正中间**/
+
   position: absolute;
   top: 50rpx;
   left: 80rpx;
   transform: translate(-50%,-50%)
+} */
+.classify-item text{
+  font-size: 80rpx;
+  
+}
+.classify-item view{
+  text-align: center;
+  color: #373a40;
+  font-size: smaller;
 }
 
 /* 最新佳作标题部分 */
@@ -107,13 +118,23 @@
 }
 .update-item-title{
   flex: 1;
-  font-size: medium;
-  font-weight: 700;
+  font-size: large;
+  font-weight: 600;
+  position: relative;
+  left: 20rpx;
 }
 .update-item-author{
   flex: 1;
   text-align: right;
   color: darkgray;
+  font-size: 10rpx;
+}
+.update-item-introd{
+  font-size: 28rpx;
+  color: darkgray;
+  position: relative;
+  left: 20rpx;
+  padding-bottom: 20rpx;
 }
 .update-item image{
   width: 100%;

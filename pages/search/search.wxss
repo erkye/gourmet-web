@@ -1,1 +1,35 @@
 /* pages/search/search.wxss */
+.search-input{
+    /**搜索框文字居中**/
+  text-align: center;
+  /**搜索框外部颜色**/
+  background-color: #91d18b;
+  /**调整整个搜索框居中**/
+  display: flex;
+  justify-content: center;
+}
+.search-input input{
+    /* 调整输入框的内的字体水平和垂直居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /**设置宽高**/
+  height: 35px; 
+  width: 650rpx;
+  /**背景颜色**/
+  background-color: #fff;
+  /**边框样式**/
+  border: 1px solid lightgray;
+  /**边框圆角**/
+  border-radius: 8px;
+  /**上下边距**/
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: medium;
+}
+.search-input view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15rpx;
+}

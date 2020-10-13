@@ -1,12 +1,12 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/search/search",
     "pages/mine/mine",
     "pages/classify/classify",
     "pages/publish/publish",
     "pages/menulist/menulist",
-    "pages/menucontent/menucontent",
-    "pages/search/search"
+    "pages/menucontent/menucontent"
   ],
   "window":{
     "backgroundTextStyle":"light",

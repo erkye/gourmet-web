@@ -16,7 +16,7 @@
   align-items: center;
   /**设置宽高**/
   height: 35px; 
-  width: 720rpx;
+  width: 680rpx;
   /**背景颜色**/
   background-color: #fff;
   /**边框样式**/

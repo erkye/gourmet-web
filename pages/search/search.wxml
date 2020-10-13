@@ -1,2 +1,7 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view class="search-input">
+    <!-- 搜索框 -->
+    <!-- model:value双向绑定数据  confirm-type 输入框的类型（search时键盘右下方按钮会显示为搜索）-->
+    <input focus model:value="{{searchValue}}" placeholder="吃点什么好呢？" confirm-type="search"/>
+    <view bind:tap="tapSearch" >搜索</view>
+</view>
