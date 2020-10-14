@@ -33,3 +33,31 @@
     align-items: center;
     padding-left: 15rpx;
 }
+
+.search-value-item{
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+}
+.search-value-item image{
+  width: 360rpx;
+  height: 180rpx;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+}
+.item-content{
+  padding-left: 30rpx;
+}
+.item-title{
+  padding-top: 30rpx;
+  font-size: large;
+  font-weight: 700;
+}
+.item-introd{
+  padding-top: 20rpx;
+  font-size: smaller;
+}
+.item-user{
+  padding-top: 20rpx;
+  font-size: smaller;
+}

@@ -5,3 +5,14 @@
     <input focus model:value="{{searchValue}}" placeholder="吃点什么好呢？" confirm-type="search"/>
     <view bind:tap="tapSearch" >搜索</view>
 </view>
+
+<view class="search-value">
+    <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id">
+        <image src="{{item.img}}"  mode="aspectFill" />
+        <view class="item-content">
+            <view class="item-title">{{item.title}}</view>
+            <view class="item-introd">{{item.introd}}</view>
+            <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+        </view>
+    </view>
+</view>
