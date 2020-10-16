@@ -1,2 +1,18 @@
-<!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+<view class="classify">
+    <searchInput></searchInput>
+
+    <view class="menu_container">
+        <scroll-view class="leftMenu" scroll-y>
+            <view class="left_menu_item" wx:for="{{leftMenuList}}" wx:key="*this">
+            {{item}}
+            </view>
+        </scroll-view>
+        <scroll-view class="rightMenu" scroll-y>
+        <view class="rightMenuContianer">
+            <view class="right_menu_item" wx:for="{{rightMenuList}}" wx:key="*this">
+            {{item}}
+            </view>
+        </view>
+        </scroll-view>
+    </view>
+</view>

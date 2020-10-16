@@ -139,3 +139,8 @@
 .update-item image{
   width: 100%;
 }
+.update-item-scan{
+  text-align: right;
+  padding-right: 20rpx;
+  color: darkgray;
+}

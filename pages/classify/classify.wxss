@@ -1,1 +1,39 @@
-/* pages/classify/classify.wxss */
+page{
+    height: 100%;
+}
+
+.classify{
+    height: 100%;
+}
+/* 分类菜单容器样式 */
+.menu_container{
+    /* 高度需要设置为全屏幕高度-输入框组件的高度 */
+    height: calc(100vh - 55px);
+    display: flex;
+}
+.leftMenu{
+    flex:2;
+}
+.rightMenu{
+    flex:5;
+}
+.rightMenuContianer{
+    display: flex;
+    flex-wrap: wrap;
+}
+.left_menu_item{
+    display: flex;
+    height: 80rpx;
+    justify-content: center;
+    align-items: center;
+    font-size: 30rpx;
+}
+.right_menu_item{
+    border: 1px solid darkgray;
+    width: 120rpx;
+    text-align: center;
+    border-radius: 20rpx;
+    padding: 4px 4px;
+    margin: 8px 0 0 8px;
+    color: darkgrey;
+}

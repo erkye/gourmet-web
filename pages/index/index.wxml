@@ -67,17 +67,33 @@
   </scroll-view> -->
 
   <view class="update-body">
+  <!-- 遍历本周佳作的数组 -->
     <view wx:for="{{latestMenu}}" wx:key="item.id" class="update-item">
+    <!-- 渲染图片 -->
       <image src="{{item.img}}" mode="aspectFill" />
+      <!-- 头部信息 标题 作者 -->
       <view class="update-item-head">
+      <!-- 标题 -->
         <view class="update-item-title">{{item.title}}</view>
+        <!-- 作者 -->
         <view class="update-item-author">
           <text class="iconfont icon-user" decode>{{item.nickname}}&nbsp;&nbsp;</text>
         </view>
       </view>
+      <!-- 菜谱描述 -->
       <view class="update-item-introd">
         <text decode>&nbsp;&nbsp;{{item.introd}}</text>
-        </view>
+      </view>
+      <!-- 菜谱的收藏点赞信息 -->
+      <view class="update-item-scan">
+        <!-- 收藏 -->
+        <text class="iconfont icon-heart">{{item.favorites}}</text>
+        <!-- 俩空格 距离产生美 -->
+        <text decode>&nbsp;&nbsp;</text>
+        <!-- 浏览量 -->
+        <text class="iconfont icon-see">{{item.pageviews}}</text>
+      </view>
+      <!-- 小程序中不提供给 html中hr标签，自定义水平分割线 -->
       <view class="line" style="width:100%;height: 5rpx"></view>
     </view>
   </view>

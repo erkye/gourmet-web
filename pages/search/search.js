@@ -27,7 +27,7 @@ Page({
       'pageSize': this.data.pageSize
     }
 
-    const {data:response} = await http.get('/index/search',{params:params})
+    const {data:response} = await http.get('/search/query',{params:params})
     console.log(response);
 
     if(response.code === 1000){

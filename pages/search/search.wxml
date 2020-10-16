@@ -1,18 +1,25 @@
-<!--pages/search/search.wxml-->
+<!-- pages/search/search.wxml -->
 <view class="search-input">
     <!-- 搜索框 -->
-    <!-- model:value双向绑定数据  confirm-type 输入框的类型（search时键盘右下方按钮会显示为搜索）-->
-    <input focus model:value="{{searchValue}}" placeholder="吃点什么好呢？" confirm-type="search"/>
-    <view bind:tap="tapSearch" >搜索</view>
+    <!-- model:value双向绑定数据  confirm-type 输入框的类型（search时键盘右下方按钮会显示为搜索） -->
+    <input focus model:value="{{searchValue}}" placeholder="吃点什么好呢？" confirm-type="search" />
+    <view bind:tap="tapSearch">搜索</view>
 </view>
-
 <view class="search-value">
     <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id">
-        <image src="{{item.img}}"  mode="aspectFill" />
+        <image src="{{item.img}}" mode="aspectFill" />
         <view class="item-content">
             <view class="item-title">{{item.title}}</view>
             <view class="item-introd">{{item.introd}}</view>
             <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+            <view class="item-scan">
+                <!-- 收藏 -->
+                <text class="iconfont icon-heart">{{item.favorites}}</text>
+                <!-- 俩空格 距离产生美 -->
+                <text decode>&nbsp;&nbsp;</text>
+                <!-- 浏览量 -->
+                <text class="iconfont icon-see">{{item.pageviews}}</text>
+            </view>
         </view>
     </view>
 </view>

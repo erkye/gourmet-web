@@ -1,10 +1,15 @@
-// pages/classify/classify.js
+// 引用封装的请求接口
+import http from '../../resquent/http'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    // 左侧一级菜单
+    leftMenuList:[],
+    // 右侧二级菜单
+    rightMenuList:[]
 
   },
 
@@ -12,55 +17,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 获取分类信息
+    this.getMenuData()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  /* 获取分类信息 */
+  async getMenuData(){
+    const {data:response} = await http.get('/classify/all')
+    if(response.code === 1000){
+      //console.log(response.data)
+      let leftMenuData = response.data.map(v=>v.name)
+      let rightMenuData = response.data[0].childs.map(v=>v.name)
+      this.setData({
+        leftMenuList: leftMenuData,
+        rightMenuList: rightMenuData
+      })
+    }
   }
+
+  
 })

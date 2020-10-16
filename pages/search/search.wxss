@@ -49,15 +49,25 @@
   padding-left: 30rpx;
 }
 .item-title{
-  padding-top: 30rpx;
+  padding-top: 20rpx;
   font-size: large;
   font-weight: 700;
 }
 .item-introd{
-  padding-top: 20rpx;
+  padding-top: 15rpx;
   font-size: smaller;
 }
 .item-user{
-  padding-top: 20rpx;
+  padding-top: 15rpx;
   font-size: smaller;
+}
+.item-scan text:nth-child(1){
+  padding-top: 15rpx;
+  font-size: smaller;
+  color: #bb2205;
+}
+.item-scan text:nth-child(3){
+  padding-top: 15rpx;
+  font-size: smaller;
+  color: #2d6187;
 }
