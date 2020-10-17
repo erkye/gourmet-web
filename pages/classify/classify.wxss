@@ -37,3 +37,7 @@ page{
     margin: 8px 0 0 8px;
     color: darkgrey;
 }
+.active{
+    color: #91d18b;
+    border-left: 5px solid currentColor;
+}

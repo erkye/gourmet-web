@@ -46,6 +46,18 @@ Page({
    */
   onLoad: function (options) {
 
+    // 获取从分类页面传递的key
+    const key = options.key
+    this.setData({
+      searchValue: key
+    })
+
+    // 触发搜索点击事件
+    if(key != null && key != ''){
+      this.tapSearch()
+    }
+    
+
   },
   // 页面触底函数
   onReachBottom:function() {
