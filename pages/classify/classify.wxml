@@ -14,6 +14,7 @@
         <scroll-view class="rightMenu" scroll-y>
         <view class="rightMenuContianer">
             <view class="right_menu_item" wx:for="{{rightMenuList}}" wx:key="*this">
+            <!-- 点击二级菜单项时直接携带二级菜单的名称跳转到搜索页面 -->
             <navigator url="/pages/search/search?key={{item}}">
                 {{item}}
             </navigator>

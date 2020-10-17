@@ -1,1 +1,45 @@
 /* pages/menucontent/menucontent.wxss */
+.head-image{
+    width: 100%;
+}
+.item-body{
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+}
+.item-head{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 120rpx;
+}
+.item-title{
+    font-size: x-large;
+    font-weight: 600;
+    position: relative;
+    top: 15rpx;
+}
+.item-user{
+    position: relative;
+    top: 15rpx;
+    color: darkgray;
+}
+.item-introd{
+    padding-top: 30rpx;
+    font-size: large;
+    font-weight: 520;
+    font-family: sans-serif;
+}
+.item-maxterials{
+    padding-top: 40rpx;
+}
+.maxterials-title{
+    font-size: larger;
+    font-weight: 600;
+}
+.maxterials-item{
+    display: flex;
+    justify-content: space-between;
+    font-size: medium;
+    padding-top: 20rpx;
+    border-bottom: 1px dotted darkgray;
+}

@@ -52,7 +52,7 @@ Page({
       searchValue: key
     })
 
-    // 触发搜索点击事件
+    // 当页面参数中有传递的值时直接触发搜索点击事件
     if(key != null && key != ''){
       this.tapSearch()
     }

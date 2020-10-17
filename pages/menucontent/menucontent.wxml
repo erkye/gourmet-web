@@ -1,2 +1,21 @@
-<!--pages/menucontent/menucontent.wxml-->
-<text>pages/menucontent/menucontent.wxml</text>
+<!-- 头部图片 -->
+<image class="head-image" src="{{menuItem.img}}" mode="aspectFill"></image>
+<view class="item-body">
+    <!-- 标题作者 -->
+    <view class="item-head">
+        <view class="item-title">{{menuItem.title}}</view>
+        <text class="item-user iconfont icon-user" decode>{{menuItem.nickname}}&nbsp;&nbsp;</text>
+    </view>
+
+    <view class="item-introd">
+    <text decode>&nbsp;&nbsp;{{menuItem.introd}}</text>
+    </view>
+
+    <view class="item-maxterials">
+        <view class="maxterials-title">用料</view>
+        <view class="maxterials-item" wx:for="{{materialsList}}" wx:key="item.id">
+            <view>{{item.name}}</view>
+            <view>{{item.quantity}}</view>
+        </view>
+    </view>
+</view>

@@ -5,7 +5,6 @@
     "pages/mine/mine",
     "pages/classify/classify",
     "pages/publish/publish",
-    "pages/menulist/menulist",
     "pages/menucontent/menucontent"
   ],
   "window":{

@@ -11,8 +11,11 @@
       <!--遍历data中的视图url数组 普通字符数组 所以key值是本身-->
       <block wx:for="{{swiperData}}" wx:key="item.id">
         <swiper-item>
-          <!--遍历显示图片 src属性：图片地址 mode属性：aspectFill缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。-->
+        <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+        <!--遍历显示图片 src属性：图片地址 mode属性：aspectFill缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。-->
           <image class="swiper-img" src="{{item.img}}" mode="aspectFill"></image>
+        </navigator>
+          
         </swiper-item>
       </block>
     </swiper>
