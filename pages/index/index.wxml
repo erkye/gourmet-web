@@ -1,27 +1,24 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="external-container">
-  <!--输入框组件开始 使用components里面的输入框组件-->
+  <!-- 输入框组件开始 使用components里面的输入框组件 -->
   <searchInput></searchInput>
-  <!--输入框组件结束-->
-
-  <!--滑块视图区域-->
+  <!-- 输入框组件结束 -->
+  <!-- 滑块视图区域 -->
   <view>
-    <!--滑块视图组件 indicator-dots 显示小点点 autoplay 开启自动播放 circular 循环衔接滑动-->
+    <!-- 滑块视图组件 indicator-dots 显示小点点 autoplay 开启自动播放 circular 循环衔接滑动 -->
     <swiper class="swiper" indicator-dots autoplay circular>
-      <!--遍历data中的视图url数组 普通字符数组 所以key值是本身-->
+      <!-- 遍历data中的视图url数组 普通字符数组 所以key值是本身 -->
       <block wx:for="{{swiperData}}" wx:key="item.id">
         <swiper-item>
-        <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
-        <!--遍历显示图片 src属性：图片地址 mode属性：aspectFill缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。-->
-          <image class="swiper-img" src="{{item.img}}" mode="aspectFill"></image>
-        </navigator>
-          
+          <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+            <!-- 遍历显示图片 src属性：图片地址 mode属性：aspectFill缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。 -->
+            <image class="swiper-img" src="{{item.img}}" mode="aspectFill"></image>
+          </navigator>
         </swiper-item>
       </block>
     </swiper>
   </view>
-
-<!--分类部分-->
+  <!-- 分类部分 -->
   <view class="classify">
     <view class="classify-head">
       <view class="classify-title">常用分类</view>
@@ -29,77 +26,73 @@
       <navigator url="/pages/classify/classify" open-type="switchTab">更多分类</navigator>
     </view>
     <view class="classify-body">
-    <!-- 计划使用图片作为背景 图片加载耗时较长改为背景色 -->
+      <!-- 计划使用图片作为背景 图片加载耗时较长改为背景色 -->
       <!-- <view class="classify-item">
         <image src="https://i.loli.net/2020/10/02/eoTmay9qS4LPOiV.jpg"></image>
         <text>早餐</text>
       </view> -->
-      <view class="classify-item" style="color:#ff414d">
-        <text class="iconfont icon-food" ></text>
+      <navigator url="/pages/search/search?key=早餐" class="classify-item" style="color:#ff414d">
+        <text class="iconfont icon-food"></text>
         <view>早餐</view>
-      </view>
-      <view class="classify-item" style="color:#0278ae">
+      </navigator>
+      <navigator url="/pages/search/search?key=午餐" class="classify-item" style="color:#0278ae">
         <text class="iconfont icon-food2"></text>
         <view>午餐</view>
-      </view>
-      <view class="classify-item" style="color:#fca652">
+      </navigator>
+      <navigator url="/pages/search/search?key=晚餐" class="classify-item" style="color:#fca652">
         <text class="iconfont icon-food1"></text>
         <view>晚餐</view>
-      </view>
-      <view class="classify-item" style="color:#ff4b5c">
+      </navigator>
+      <navigator url="/pages/search/search?key=宵夜" class="classify-item" style="color:#ff4b5c">
         <text class="iconfont icon-food3"></text>
         <view>宵夜</view>
-      </view>
-      
-      
+      </navigator>
     </view>
   </view>
-<!-- 常用分类部分end -->
-<view class="line" style="width:100%;height: 10rpx"></view> 
-
-<!-- 最新佳作 -->
-<view>
-  <view class="update-title">「 最新佳作 」</view>
-
-  <!-- 最新佳作主体部分 -->
-  <!-- scroll-y：竖向滑动  scroll-top：竖向滚动条的位置 scroll-with-animatione：设置滚动条位置时启用动画-->
-  <!-- nable-back-to-top：安卓双击标题栏、ios点击顶部状态栏出发返回顶部 bindscrolltolower：页面下拉到底部时触发的事件-->
-  <!-- <scroll-view class="update-body" scroll-y scroll-top="0" scroll-with-animatione nable-back-to-top 
+  <!-- 常用分类部分end -->
+  <view class="line" style="width:100%;height: 10rpx"></view>
+  <!-- 最新佳作 -->
+  <view>
+    <view class="update-title">「 最新佳作 」</view>
+    <!-- 最新佳作主体部分 -->
+    <!-- scroll-y：竖向滑动  scroll-top：竖向滚动条的位置 scroll-with-animatione：设置滚动条位置时启用动画 -->
+    <!-- nable-back-to-top：安卓双击标题栏、ios点击顶部状态栏出发返回顶部 bindscrolltolower：页面下拉到底部时触发的事件 -->
+    <!-- <scroll-view class="update-body" scroll-y scroll-top="0" scroll-with-animatione nable-back-to-top 
     bindscrolltolower="">
     
   </scroll-view> -->
-
-  <view class="update-body">
-  <!-- 遍历本周佳作的数组 -->
-    <view wx:for="{{latestMenu}}" wx:key="item.id" class="update-item">
-    <!-- 渲染图片 -->
-      <image src="{{item.img}}" mode="aspectFill" />
-      <!-- 头部信息 标题 作者 -->
-      <view class="update-item-head">
-      <!-- 标题 -->
-        <view class="update-item-title">{{item.title}}</view>
-        <!-- 作者 -->
-        <view class="update-item-author">
-          <text class="iconfont icon-user" decode>{{item.nickname}}&nbsp;&nbsp;</text>
-        </view>
+    <view class="update-body">
+      <!-- 遍历本周佳作的数组 -->
+      <view wx:for="{{latestMenu}}" wx:key="item.id" class="update-item">
+        <!-- 渲染图片 -->
+        <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+          <image src="{{item.img}}" mode="aspectFill" />
+          <!-- 头部信息 标题 作者 -->
+          <view class="update-item-head">
+            <!-- 标题 -->
+            <view class="update-item-title">{{item.title}}</view>
+            <!-- 作者 -->
+            <view class="update-item-author">
+              <text class="iconfont icon-user" decode>{{item.nickname}}&nbsp;&nbsp;</text>
+            </view>
+          </view>
+          <!-- 菜谱描述 -->
+          <view class="update-item-introd">
+            <text decode>&nbsp;&nbsp;{{item.introd}}</text>
+          </view>
+          <!-- 菜谱的收藏点赞信息 -->
+          <view class="update-item-scan">
+            <!-- 收藏 -->
+            <text class="iconfont icon-heart">{{item.favorites}}</text>
+            <!-- 俩空格 距离产生美 -->
+            <text decode>&nbsp;&nbsp;</text>
+            <!-- 浏览量 -->
+            <text class="iconfont icon-see">{{item.pageviews}}</text>
+          </view>
+          <!-- 小程序中不提供给 html中hr标签，自定义水平分割线 -->
+          <view class="line" style="width:100%;height: 5rpx"></view>
+        </navigator>
       </view>
-      <!-- 菜谱描述 -->
-      <view class="update-item-introd">
-        <text decode>&nbsp;&nbsp;{{item.introd}}</text>
-      </view>
-      <!-- 菜谱的收藏点赞信息 -->
-      <view class="update-item-scan">
-        <!-- 收藏 -->
-        <text class="iconfont icon-heart">{{item.favorites}}</text>
-        <!-- 俩空格 距离产生美 -->
-        <text decode>&nbsp;&nbsp;</text>
-        <!-- 浏览量 -->
-        <text class="iconfont icon-see">{{item.pageviews}}</text>
-      </view>
-      <!-- 小程序中不提供给 html中hr标签，自定义水平分割线 -->
-      <view class="line" style="width:100%;height: 5rpx"></view>
     </view>
   </view>
-</view>
-
 </view>

@@ -43,3 +43,32 @@
     padding-top: 20rpx;
     border-bottom: 1px dotted darkgray;
 }
+.item-scan{
+    color: darkgray;
+    font-size: x-small;
+}
+.item-do{
+    padding-top: 40rpx;
+}
+.do-title{
+    font-size: larger;
+    font-weight: 600;
+    padding-bottom: 40rpx;
+}
+.bottom-btn{
+    width: 100%;
+    position: fixed;
+    bottom: 20rpx;
+    display: flex;
+}
+.btn{
+    border-radius: 40rpx;
+    color: #fff;
+    font-weight: 200;
+}
+.btn-star{
+    background-color: #bb2205;
+}
+.btn-share{
+    background-color: #f6830f;
+}

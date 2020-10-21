@@ -6,11 +6,14 @@
         <view class="item-title">{{menuItem.title}}</view>
         <text class="item-user iconfont icon-user" decode>{{menuItem.nickname}}&nbsp;&nbsp;</text>
     </view>
-
-    <view class="item-introd">
-    <text decode>&nbsp;&nbsp;{{menuItem.introd}}</text>
+    <view class="item-scan">
+        <text>{{menuItem.pageviews}}次浏览·{{menuItem.favorites}}次收藏</text>
     </view>
-
+    <!-- 菜谱描述 -->
+    <view class="item-introd">
+        <text decode>&nbsp;&nbsp;{{menuItem.introd}}</text>
+    </view>
+    <!-- 用料表 -->
     <view class="item-maxterials">
         <view class="maxterials-title">用料</view>
         <view class="maxterials-item" wx:for="{{materialsList}}" wx:key="item.id">
@@ -18,4 +21,17 @@
             <view>{{item.quantity}}</view>
         </view>
     </view>
+    <!-- 做法 -->
+    <view class="item-do">
+        <view class="do-title">做法</view>
+        <view class="do-body">
+            <!-- 使用富文本渲染页面 -->
+            <!-- 添加几个<br/>换行符，不然最下面的会被底部按钮挡住 -->
+            <rich-text nodes="{{menuItem.content}}<br/><br/></br><br/>"></rich-text>
+        </view>
+    </view>
+</view>
+<view class="bottom-btn">
+    <button class="btn btn-star">收藏</button>
+    <button class="btn btn-share"  open-type="share">分享</button>
 </view>

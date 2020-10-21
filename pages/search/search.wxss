@@ -37,9 +37,11 @@
 .search-value-item{
   width: 100%;
   height: 200rpx;
+}
+.search-value-item navigator{
   display: flex;
 }
-.search-value-item image{
+.search-value-item navigator image{
   width: 360rpx;
   height: 180rpx;
   padding-left: 30rpx;

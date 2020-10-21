@@ -1,2 +1,9 @@
-<!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="user-info-wrap">
+    <view class="user-img-warp">
+        <image class="user-bg" src="{{userInfo.avatarUrl}}" />
+        <view class="user-info">
+            <image class="user-icon" src="{{userInfo.avatarUrl}}"></image>
+            <view class="user-name">{{userInfo.nickName}}</view>
+        </view>
+    </view>
+</view>

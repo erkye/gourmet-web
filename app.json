@@ -5,7 +5,8 @@
     "pages/mine/mine",
     "pages/classify/classify",
     "pages/publish/publish",
-    "pages/menucontent/menucontent"
+    "pages/menucontent/menucontent",
+    "pages/login/login"
   ],
   "window":{
     "backgroundTextStyle":"light",
