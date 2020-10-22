@@ -6,7 +6,9 @@
     "pages/classify/classify",
     "pages/publish/publish",
     "pages/menucontent/menucontent",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/mystar/mystar",
+    "pages/mypublish/mypublish"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -3,7 +3,7 @@ Page({
     formats: {},
     readOnly: false,
     placeholder: '开始输入...',
-    editorHeight: 300,
+    editorHeight: 800,
     keyboardHeight: 0,
     isIOS: false
   },

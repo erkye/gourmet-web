@@ -1,4 +1,4 @@
-<view class="user-info-wrap">
+<view class="user-info-wrap" wx:if="{{isLogin}}">
     <view class="user-img-warp">
         <image class="user-bg" src="{{userInfo.avatarUrl}}" />
         <view class="user-info">
@@ -6,4 +6,21 @@
             <view class="user-name">{{userInfo.nickName}}</view>
         </view>
     </view>
+</view>
+<view class="user-nonlogin-warp" wx:else>
+    <view class="user-info">
+        <view class="user-icon">
+            <navigator url="/pages/login/login">登录</navigator>
+        </view>
+    </view>
+</view>
+<view class="mine-menu" wx:if="{{isLogin}}">
+    <navigator url="/pages/mystar/mystar"  class="mine-menu-item">
+        <view>我的收藏</view>
+        <view>></view>
+    </navigator>
+    <navigator url="/pages/mypublish/mypublish" class="mine-menu-item">
+        <view>我的发布</view>
+        <view>></view>
+    </navigator>
 </view>

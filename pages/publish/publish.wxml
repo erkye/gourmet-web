@@ -1,8 +1,19 @@
-<view class="container" style="height:{{editorHeight}}px;">
-  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady">
-  </editor>
+<view class="menu-container">
+  <view class="menu-title">
+    <view>菜谱名称：</view>
+    <input placeholder="请输入菜谱的名称" />
+  </view>
+
+  <view class="menu-introd">
+  <view>菜谱简介：</view>
+  <textarea placeholder="请输入菜谱的简介" maxlength="50" auto-height></textarea>
+  </view>
 </view>
 
+<!-- 富文本编辑器部分 -->
+<view class="editor-container" style="height:{{editorHeight}}px;">
+  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady"></editor>
+</view>
 <view class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
   <i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
   <i class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>

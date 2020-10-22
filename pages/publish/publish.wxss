@@ -1,49 +1,89 @@
 /* pages/publish/publish.wxss */
-@import '../../lib/weui.wxss';
-@import './assets/iconfont.wxss';
-.container {
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%;
-  }
-  
-  .ql-container {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    font-size: 16px;
-    line-height: 1.5;
-    overflow: auto;
-    padding: 10px 10px 20px 10px;
-    border: 1px solid #ECECEC;
-  }
-  
-  .ql-active {
-    color: #22C704;
-  }
-  
-  .iconfont {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .toolbar {
-    box-sizing: border-box;
-    padding: 0 10px;
-    height: 50px;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    right: 100%;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ECECEC;
-    border-left: none;
-    border-right: none;
-  }
+@import "../../lib/weui.wxss";
+@import "./assets/iconfont.wxss";
+
+.menu-title {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 80rpx;
+  margin-top: 30rpx;
+}
+.menu-title view {
+  height: 80rpx;
+  width: 100px;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 16px;
+  font-weight: 500;
+}
+.menu-title input {
+  width: 540rpx;
+  height: 80rpx;
+  border: 1px solid darkgray;
+  border-radius: 20rpx;
+}
+.menu-introd {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 200rpx;
+  margin-top: 30rpx;
+}
+.menu-introd view {
+  height: 200rpx;
+  width: 100px;
+  text-align: center;
+  line-height: 200rpx;
+  font-size: 16px;
+  font-weight: 500;
+}
+.menu-introd textarea {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* 下面时富文本编辑器区域的样式 */
+.editor-container {
+  width: 100%;
+}
+
+.ql-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: auto;
+  padding: 10px 10px 20px 10px;
+  border: 1px solid #ececec;
+}
+
+.ql-active {
+  color: #22c704;
+}
+
+.iconfont {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.toolbar {
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ececec;
+  border-left: none;
+  border-right: none;
+}

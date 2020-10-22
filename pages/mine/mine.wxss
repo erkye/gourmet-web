@@ -1,30 +1,64 @@
 /* pages/mine/mine.wxss */
-.user-info-wrap{
-    width: 100%;
-    height: 40vh;
-    background-color: black;
+.user-info-wrap {
+  width: 100%;
+  height: 40vh;
+  background-color: black;
 }
-.user-img-warp{
-    position: relative;
+.user-img-warp {
+  position: relative;
 }
-.user-bg{
-    width: 100%;
-    height: 40vh;
-    filter: blur(10rpx);
+.user-bg {
+  width: 100%;
+  height: 40vh;
+  filter: blur(10rpx);
 }
-.user-info{
+.user-info {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   top: 30%;
   text-align: center;
 }
-.user-icon{
-    width: 150rpx;
-    height: 150rpx;
-    border-radius: 50%;
+.user-icon {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
 }
-.user-name{
-    margin-top: 30rpx;
-    color: #fff;
+.user-name {
+  margin-top: 30rpx;
+  color: #fff;
+}
+.user-nonlogin-warp {
+  width: 100%;
+  height: 40vh;
+  background-color: ghostwhite;
+}
+.user-nonlogin-warp .user-info {
+  top: 20%;
+}
+.user-nonlogin-warp .user-info .user-icon navigator {
+  border: 2px solid #91d18b;
+  border-radius: 20rpx;
+  background-color: #91d18b;
+}
+.mine-menu{
+    margin-top: 20rpx;
+}
+
+.mine-menu-item{
+    display: flex;
+    justify-content: space-between;
+    height: 100rpx;
+    align-items: center;
+    background-color: ghostwhite;
+    border-bottom: 1px solid darkgrey;
+    font-size: medium;
+    font-weight: 500;
+}
+.mine-menu-item view:first-child{
+    margin-left: 30rpx;
+}
+.mine-menu-item view:last-child{
+    color: darkgray;
+    margin-right: 30rpx;
 }
