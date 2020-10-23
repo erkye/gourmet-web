@@ -2,6 +2,7 @@
 @import "../../lib/weui.wxss";
 @import "./assets/iconfont.wxss";
 
+/* 菜谱标题部分样式 */
 .menu-title {
   display: flex;
   text-align: center;
@@ -20,9 +21,10 @@
 .menu-title input {
   width: 540rpx;
   height: 80rpx;
-  border: 1px solid darkgray;
+  border: 1px solid #e8e8e8;
   border-radius: 20rpx;
 }
+/* 菜谱简介样式 */
 .menu-introd {
   display: flex;
   text-align: center;
@@ -41,11 +43,21 @@
 .menu-introd textarea {
   margin-top: auto;
   margin-bottom: auto;
-  border-bottom: 1px solid darkgray;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* 菜谱封面部分样式 */
+.menu-img{
+  margin-bottom: 30rpx;
+}
+.menu-img image{
+  width: 100%;
 }
 
 /* 下面时材料部分的样式 */
-
+.menu-materials{
+  background-color: #ecf4f3;
+}
 .materials-title {
   display: flex;
   width: 100%;
@@ -59,11 +71,19 @@
 .materials-row{
   display: flex;
   width: 100%;
-  border-bottom: 1px solid darkgray;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #e8e8e8;
 }
 .materials-row view{
   width: 187rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
+}
+.materials-row view input{
+  height: 80rpx;
+  line-height: 80rpx;
 }
 /* 下面时富文本编辑器区域的样式 */
 .editor-container {

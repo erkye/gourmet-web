@@ -1,3 +1,5 @@
 {
-  "usingComponents": {"searchInput":"/components/searchInput/searchInput"}
+  "usingComponents": { "searchInput": "/components/searchInput/searchInput" },
+  "enablePullDownRefresh": true, 
+  "backgroundColor": "#91d18b" 
 }

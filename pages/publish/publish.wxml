@@ -9,6 +9,10 @@
     <view>简介：</view>
     <textarea placeholder="请输入菜谱的简介" model:value="{{introd}}" maxlength="50" auto-height></textarea>
   </view>
+  <view class="menu-img">
+    <image src="{{img}}" wx:if="{{img!==''}}" />
+    <button type="primary" bind:tap="handleSelectImage">选择封面</button>
+  </view>
   <!-- 菜谱材料部分（重点） -->
   <view class="menu-materials">
     <view class="materials-title">
@@ -56,7 +60,7 @@
 </view>
 <!-- 底部按钮 -->
 <view class="btn">
-  <button type="primary">发布</button>
+  <button type="primary" bind:tap="handelPublish">发布</button>
   <button type="default">保存到草稿</button>
 </view>
 <!-- 再加几个换行符，下面又给我挡住了 😔 -->
