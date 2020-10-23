@@ -3,7 +3,7 @@
 const app = getApp()
 
 // 引用封装的请求接口
-import http from '../../resquent/http'
+import {http} from '../../resquent/http'
 
 Page({
   data: {

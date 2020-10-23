@@ -1,15 +1,44 @@
 <view class="menu-container">
   <view class="menu-title">
-    <view>菜谱名称：</view>
-    <input placeholder="请输入菜谱的名称" />
+    <!-- 菜谱名称 -->
+    <view>名称：</view>
+    <input placeholder="请输入菜谱的名称" model:value="{{title}}" />
   </view>
-
   <view class="menu-introd">
-  <view>菜谱简介：</view>
-  <textarea placeholder="请输入菜谱的简介" maxlength="50" auto-height></textarea>
+    <!-- 菜谱简介 -->
+    <view>简介：</view>
+    <textarea placeholder="请输入菜谱的简介" model:value="{{introd}}" maxlength="50" auto-height></textarea>
+  </view>
+  <!-- 菜谱材料部分（重点） -->
+  <view class="menu-materials">
+    <view class="materials-title">
+      <view>材料序号</view>
+      <view>名称</view>
+      <view>数量</view>
+      <view>
+        <button type="primary" size="mini" bind:tap="handleMaterialsAdd">添加</button>
+      </view>
+    </view>
+    <view class="materials-body">
+      <view class="materials-row" wx:for="{{materialsList}}" wx:key="index">
+        <view>{{index + 1}}</view>
+        <!-- 😫此处裂开 微信小程序脑残的数据绑定....无法绑定数组中对象的具体值 -->
+        <!-- 只好自定义失去焦点更新数据事件 更新data中对应的数据 -->
+        <view>
+          <input model:value="{{item.name}}" placeholder="名称" bindblur="handleUpdateMaterialsName" data-index="{{index}}" />
+        </view>
+        <view>
+          <input model:value="{{item.quantity}}" placeholder="数量" bindblur="handleUpdateMaterialsQuantity" data-index="{{index}}" />
+        </view>
+        <view>
+          <button type="warn" size="mini" bind:tap="handleMaterialsDel" data-index="{{index}}">
+            X
+          </button>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
-
 <!-- 富文本编辑器部分 -->
 <view class="editor-container" style="height:{{editorHeight}}px;">
   <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady"></editor>
@@ -25,3 +54,10 @@
   <i class="iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
   <i class="iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
 </view>
+<!-- 底部按钮 -->
+<view class="btn">
+  <button type="primary">发布</button>
+  <button type="default">保存到草稿</button>
+</view>
+<!-- 再加几个换行符，下面又给我挡住了 😔 -->
+<rich-text nodes="<br/><br/></br><br/>"></rich-text>

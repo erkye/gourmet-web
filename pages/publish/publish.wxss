@@ -41,8 +41,30 @@
 .menu-introd textarea {
   margin-top: auto;
   margin-bottom: auto;
+  border-bottom: 1px solid darkgray;
 }
 
+/* 下面时材料部分的样式 */
+
+.materials-title {
+  display: flex;
+  width: 100%;
+  font-size: 35rpx;
+  font-weight: 600;
+}
+.materials-title view{
+  width: 187rpx;
+  text-align: center;
+}
+.materials-row{
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid darkgray;
+}
+.materials-row view{
+  width: 187rpx;
+  text-align: center;
+}
 /* 下面时富文本编辑器区域的样式 */
 .editor-container {
   width: 100%;
@@ -86,4 +108,8 @@
   border: 1px solid #ececec;
   border-left: none;
   border-right: none;
+}
+/* 底部按钮样式 */
+.btn button{
+  margin-top: 20rpx;
 }
