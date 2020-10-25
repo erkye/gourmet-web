@@ -1,4 +1,3 @@
-// pages/mypublish/mypublish.js
 Page({
 
   /**

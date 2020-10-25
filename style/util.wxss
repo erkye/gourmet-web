@@ -2,5 +2,5 @@
 .line{
     width: 80%;
     height: 2rpx;
-    background-color: #d9e4dd;
+    background-color: #ececec;
 }

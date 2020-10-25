@@ -61,7 +61,7 @@
 <!-- 底部按钮 -->
 <view class="btn">
   <button type="primary" bind:tap="handelPublish">发布</button>
-  <button type="default">保存到草稿</button>
+  <!-- <button type="default">保存到草稿</button> -->
 </view>
 <!-- 再加几个换行符，下面又给我挡住了 😔 -->
 <rich-text nodes="<br/><br/></br><br/>"></rich-text>

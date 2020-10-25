@@ -97,6 +97,21 @@
 					"id": -1,
 					"name": "发布页面",
 					"pathName": "pages/publish/publish",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的发布",
+					"pathName": "pages/mypublish/mypublish",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "pages/mystar/mystar",
+					"query": "",
 					"scene": null
 				}
 			]

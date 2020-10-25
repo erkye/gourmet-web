@@ -38,6 +38,6 @@ page{
     color: darkgrey;
 }
 .active{
-    color: #91d18b;
+    color: #ea5455;
     border-left: 5px solid currentColor;
 }

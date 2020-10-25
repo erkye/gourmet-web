@@ -37,9 +37,9 @@
   top: 20%;
 }
 .user-nonlogin-warp .user-info .user-icon navigator {
-  border: 2px solid #91d18b;
+  border: 2px solid #ea5455;
   border-radius: 20rpx;
-  background-color: #91d18b;
+  background-color: #ea5455;
 }
 .mine-menu{
     margin-top: 20rpx;
@@ -51,7 +51,7 @@
     height: 100rpx;
     align-items: center;
     background-color: ghostwhite;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px solid #ececec;
     font-size: medium;
     font-weight: 500;
 }

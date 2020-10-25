@@ -12,13 +12,13 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#91d18b",
+    "navigationBarBackgroundColor": "#ea5455",
     "navigationBarTitleText": "小小美食家",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
     "color": "#707070",
-    "selectedColor":"#91d18b",
+    "selectedColor":"#ea5455",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",

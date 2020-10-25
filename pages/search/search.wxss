@@ -3,7 +3,7 @@
     /**搜索框文字居中**/
   text-align: center;
   /**搜索框外部颜色**/
-  background-color: #91d18b;
+  background-color: #ea5455;
   /**调整整个搜索框居中**/
   display: flex;
   justify-content: center;

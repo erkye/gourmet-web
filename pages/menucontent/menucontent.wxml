@@ -32,6 +32,6 @@
     </view>
 </view>
 <view class="bottom-btn">
-    <button class="btn btn-star">收藏</button>
+    <button class="btn btn-star" bind:tap="handleStarMeun">收藏</button>
     <button class="btn btn-share"  open-type="share">分享</button>
 </view>

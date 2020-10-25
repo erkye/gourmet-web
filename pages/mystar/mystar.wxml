@@ -1,2 +1,20 @@
-<!--pages/mystar/mystar.wxml-->
-<text>pages/mystar/mystar.wxml</text>
+<view class="search-value">
+    <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id" bind:longpress="handleLongPress" data-id="{{item.id}}">
+        <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+            <image src="{{item.img}}" mode="aspectFill" />
+            <view class="item-content">
+                <view class="item-title">{{item.title}}</view>
+                <view class="item-introd">{{item.introd}}</view>
+                <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+                <view class="item-scan">
+                    <!-- 收藏 -->
+                    <text class="iconfont icon-heart">{{item.favorites}}</text>
+                    <!-- 俩空格 距离产生美 -->
+                    <text decode>&nbsp;&nbsp;</text>
+                    <!-- 浏览量 -->
+                    <text class="iconfont icon-see">{{item.pageviews}}</text>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>

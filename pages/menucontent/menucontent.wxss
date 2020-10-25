@@ -41,7 +41,7 @@
     justify-content: space-between;
     font-size: medium;
     padding-top: 20rpx;
-    border-bottom: 1px dotted darkgray;
+    border-bottom: 1px dotted #ececec;
 }
 .item-scan{
     color: darkgray;
