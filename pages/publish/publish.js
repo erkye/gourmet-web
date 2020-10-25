@@ -14,6 +14,8 @@ Page({
     nickName: '',
     // 是否推荐
     recommend:false,
+    // 内容
+    content:'',
     /* 材料部分需要的数据 */
     /* 材料列表 */
     materialsList: [
@@ -194,7 +196,7 @@ Page({
         if(response.data){
           /* 发布成功跳转到我的发布页面 */
           this.showTip('修改成功')
-          wx.navigateTo({url:'/pages/mypublish/mypublish'})
+          wx.redirectTo({url:'/pages/mypublish/mypublish'})
           return;
         }
       }
@@ -237,10 +239,11 @@ Page({
         introd:menu.introd,
         img:menu.img,
         nickname:menu.nickName,
-        recommend:menu.recommend
+        recommend:menu.recommend,
+        content:menu.content
       });
-      // 设置菜谱的内容
-      this.editorCtx.setContents({html:menu.content})
+      // TODO 设置菜谱的内容 不妥 有概率出现富文本还未初始化就赋值
+       this.editorCtx.setContents({html:menu.content})
     }
     // 请求菜谱材料列表的数据
     const { data: materialsResponse } = await http.get("/menu/materials", {params});
