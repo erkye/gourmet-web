@@ -113,6 +113,20 @@
 					"pathName": "pages/mystar/mystar",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的发布",
+					"pathName": "pages/mypublish/mypublish",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "发布（编辑状态）",
+					"pathName": "pages/publish/publish",
+					"query": "menuId=1",
+					"scene": null
 				}
 			]
 		}

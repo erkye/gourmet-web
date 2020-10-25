@@ -2,6 +2,8 @@ import { http, serverIp } from "../../resquent/http";
 
 Page({
   data: {
+    // 菜谱id ,新发布是为-1 ，编辑菜谱是为菜谱的真实id
+    id: -1,
     // 标题
     title: "",
     // 简介
@@ -10,6 +12,8 @@ Page({
     img: "",
     // 用户昵称
     nickName: '',
+    // 是否推荐
+    recommend:false,
     /* 材料部分需要的数据 */
     /* 材料列表 */
     materialsList: [
@@ -155,7 +159,7 @@ Page({
     }
 
 
-    const params = {
+    let params = {
       title: this.data.title,
       introd: this.data.introd,
       img:this.data.img,
@@ -163,18 +167,42 @@ Page({
       materials:this.data.materialsList,
       content:steps
     }
-
-    const {data:response} = await http.post('/menu/publish',params)
-    if(response.code === 1000){
-      if(response.data === 'ok'){
-        /* 发布成功跳转到我的发布页面 */
-        this.showTip('发布成功')
-        wx.navigateTo({url:'/pages/mypublish/mypublish'})
-        return;
+    if(this.data.id === -1){
+      // 新发布菜谱，菜谱的id为-1，走发布逻辑
+      const {data:response} = await http.post('/menu/publish',params)
+      if(response.code === 1000){
+        if(response.data === 'ok'){
+          /* 发布成功跳转到我的发布页面 */
+          this.showTip('发布成功')
+          wx.navigateTo({url:'/pages/mypublish/mypublish'})
+          return;
+        }
       }
+  
+      this.showTip('发布失败，请重试')
+    }else{
+      // 菜谱的id不为-1，编辑菜谱 走更新逻辑
+      // 传递的参数中添加id
+      params = {
+        ...params,
+        id: this.data.id,
+        recommend:this.data.recommend
+      }
+      const {data:response} = await http.post('/menu/update',params)
+      console.log(response);
+      if(response.code === 1000){
+        if(response.data){
+          /* 发布成功跳转到我的发布页面 */
+          this.showTip('修改成功')
+          wx.navigateTo({url:'/pages/mypublish/mypublish'})
+          return;
+        }
+      }
+      this.showTip('编辑失败，请重试')
+
     }
 
-    this.showTip('发布失败，请重试')
+    
     
   },
 
@@ -193,7 +221,37 @@ Page({
       readOnly: !this.data.readOnly,
     });
   },
-  onLoad() {
+  // 编辑菜谱是获取菜谱的信息
+  async getMenuContent(){
+    // 请求参数
+    const params = {
+      id:this.data.id
+    }
+    // 请求菜谱的数据
+    const { data: menuResponse } = await http.get("/menu/query", { params });
+    if (menuResponse.code === 1000) {
+      const menu  = menuResponse.data
+      // 设置返回菜谱数据
+      this.setData({
+        title: menu.title,
+        introd:menu.introd,
+        img:menu.img,
+        nickname:menu.nickName,
+        recommend:menu.recommend
+      });
+      // 设置菜谱的内容
+      this.editorCtx.setContents({html:menu.content})
+    }
+    // 请求菜谱材料列表的数据
+    const { data: materialsResponse } = await http.get("/menu/materials", {params});
+    if (materialsResponse.code === 1000) {
+      // 设置材料列表
+      this.setData({
+        materialsList: materialsResponse.data,
+      });
+    }
+  },
+  onLoad(option) {
      // 从缓存中获取
      const userInfo = wx.getStorageSync('userinfo')
      // 对象判空不可以直接使用 === null来判断
@@ -209,7 +267,16 @@ Page({
        });
      }
 
-
+     // 获取我的发布页面编辑菜谱时传递过来的菜谱id
+     const menuId = option.menuId
+     if(menuId){
+       // 有menuId参数时 表示编辑菜谱
+       this.setData({
+         id:menuId
+       })
+       // 获取菜谱信息
+       this.getMenuContent()
+     }
 
     const platform = wx.getSystemInfoSync().platform;
     const isIOS = platform === "ios";

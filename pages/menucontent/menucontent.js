@@ -30,6 +30,7 @@ Page({
       });
     }
 
+    // 请求参数
     const params = {
       nickName: this.data.nickName,
       menuId: this.data.menuItem.id
@@ -37,14 +38,22 @@ Page({
 
     const { data: response } = await http.get("/menu/star",{params})
     if(response.code === 1000){
+      // 收藏成功后会返回true
       if(response.data){
         wx.showToast({
           title: '收藏成功',
           icon: 'success',
           duration: 2000
         })
+        return
       }
     }
+    wx.showToast({
+      title: '收藏失败',
+      icon: 'none',
+      duration: 2000
+    })
+
   },
 
   /**
@@ -65,20 +74,24 @@ Page({
     const id = options.id;
     this.getMenuData(id);
   },
+  /* 根据菜谱的id获取菜谱相关的数据 */
   async getMenuData(id) {
+    // 请求参数
     const params = {
       id,
-    };
+    }
+    // 请求菜谱的数据
     const { data: menuResponse } = await http.get("/menu/query", { params });
     if (menuResponse.code === 1000) {
+      // 设置返回菜谱数据
       this.setData({
         menuItem: menuResponse.data,
       });
     }
-    const { data: materialsResponse } = await http.get("/menu/materials", {
-      params,
-    });
+    // 请求菜谱材料列表的数据
+    const { data: materialsResponse } = await http.get("/menu/materials", {params});
     if (materialsResponse.code === 1000) {
+      // 设置材料列表
       this.setData({
         materialsList: materialsResponse.data,
       });
