@@ -176,7 +176,7 @@ Page({
         if(response.data === 'ok'){
           /* 发布成功跳转到我的发布页面 */
           this.showTip('发布成功')
-          wx.navigateTo({url:'/pages/mypublish/mypublish'})
+          wx.redirectTo({url:'/pages/mypublish/mypublish'})
           return;
         }
       }
@@ -243,7 +243,13 @@ Page({
         content:menu.content
       });
       // TODO 设置菜谱的内容 不妥 有概率出现富文本还未初始化就赋值
-       this.editorCtx.setContents({html:menu.content})
+      // 啊啊啊  很🐕的办法，当赋值时富文本编辑器还未初始化时，等2秒再次尝试
+       try{
+          this.editorCtx.setContents({html:menu.content})
+          console.log("1111");
+       }catch(e){
+        setTimeout(()=>{this.editorCtx.setContents({html:menu.content})},2000)
+       }
     }
     // 请求菜谱材料列表的数据
     const { data: materialsResponse } = await http.get("/menu/materials", {params});

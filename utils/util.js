@@ -14,6 +14,14 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+/* 简介部分防止字符串过长导致样式出问题 */
+const simplifyStr = str =>{
+  if(str.length <= 8){
+    return str
+  }
+  return str.slice(0,8) + '...'
+}
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  simplifyStr
 }

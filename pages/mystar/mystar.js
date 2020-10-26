@@ -1,5 +1,6 @@
 // 引用封装的请求接口
 import {http} from '../../resquent/http'
+import {simplifyStr} from '../../utils/util'
 Page({
 
   /**
@@ -23,6 +24,8 @@ Page({
     const {data:response} = await http.get('/mine/star',{params})
     console.log(response);
     if(response.code === 1000){
+      // 简化简介部分 太长了就用... 代替
+      response.data.map(item => {item.introd = simplifyStr(item.introd)})
       this.setData({
         menuList:response.data
       })

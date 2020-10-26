@@ -1,7 +1,7 @@
 // pages/search/search.js
 // 引用封装的请求接口
 import {http} from '../../resquent/http'
-
+import {simplifyStr}  from '../../utils/util'
 Page({
 
   /**
@@ -31,6 +31,8 @@ Page({
     console.log(response);
 
     if(response.code === 1000){
+      // 简化简介部分 太长了就用... 代替
+      response.data.list.map(item => {item.introd = simplifyStr(item.introd)})
       this.setData({
         // 追加数据
         menuList: [...this.data.menuList,...response.data.list],

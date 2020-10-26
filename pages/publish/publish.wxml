@@ -29,10 +29,10 @@
         <!-- 😫此处裂开 微信小程序脑残的数据绑定....无法绑定数组中对象的具体值 -->
         <!-- 只好自定义失去焦点更新数据事件 更新data中对应的数据 -->
         <view>
-          <input model:value="{{item.name}}" placeholder="名称" bindblur="handleUpdateMaterialsName" data-index="{{index}}" />
+          <input adjust-position="{{false}}" model:value="{{item.name}}" placeholder="名称" bindblur="handleUpdateMaterialsName" data-index="{{index}}" />
         </view>
         <view>
-          <input model:value="{{item.quantity}}" placeholder="数量" bindblur="handleUpdateMaterialsQuantity" data-index="{{index}}" />
+          <input adjust-position="{{false}}" model:value="{{item.quantity}}" placeholder="数量" bindblur="handleUpdateMaterialsQuantity" data-index="{{index}}" />
         </view>
         <view>
           <button type="warn" size="mini" bind:tap="handleMaterialsDel" data-index="{{index}}">

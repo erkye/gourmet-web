@@ -27,12 +27,12 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.13.1",
-	"appid": "wx532abca27f7ed34f",
+	"appid": "wx79a74a20222b2378",
 	"projectname": "gourmet",
 	"debugOptions": {
 		"hidedInDevtools": []

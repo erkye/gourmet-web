@@ -14,7 +14,7 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#ea5455",
     "navigationBarTitleText": "小小美食家",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
     "color": "#707070",

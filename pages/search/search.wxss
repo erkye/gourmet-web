@@ -52,24 +52,24 @@
 }
 .item-title{
   padding-top: 20rpx;
-  font-size: large;
+  font-size: 38rpx;
   font-weight: 700;
 }
 .item-introd{
   padding-top: 15rpx;
-  font-size: smaller;
+  font-size: 24rpx;
 }
 .item-user{
   padding-top: 15rpx;
-  font-size: smaller;
+  font-size: 28rpx;
 }
 .item-scan text:nth-child(1){
   padding-top: 15rpx;
-  font-size: smaller;
+  font-size: 24rpx;
   color: #bb2205;
 }
 .item-scan text:nth-child(3){
   padding-top: 15rpx;
-  font-size: smaller;
+  font-size: 24rpx;
   color: #2d6187;
 }
