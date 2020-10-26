@@ -25,7 +25,10 @@ Page({
     console.log(response);
     if(response.code === 1000){
       // 简化简介部分 太长了就用... 代替
-      response.data.map(item => {item.introd = simplifyStr(item.introd)})
+      response.data.map(item => {
+        item.introd = simplifyStr(item.introd,8);
+        item.title = simplifyStr(item.title,7)
+      })
       this.setData({
         menuList:response.data
       })

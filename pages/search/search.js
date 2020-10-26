@@ -31,8 +31,11 @@ Page({
     console.log(response);
 
     if(response.code === 1000){
-      // 简化简介部分 太长了就用... 代替
-      response.data.list.map(item => {item.introd = simplifyStr(item.introd)})
+      // 标题简化简介部分 太长了就用... 代替
+      response.data.list.map(item => {
+        item.introd = simplifyStr(item.introd,8);
+        item.title = simplifyStr(item.title,7)
+      })
       this.setData({
         // 追加数据
         menuList: [...this.data.menuList,...response.data.list],

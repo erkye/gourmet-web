@@ -15,11 +15,11 @@ const formatNumber = n => {
 }
 
 /* 简介部分防止字符串过长导致样式出问题 */
-const simplifyStr = str =>{
-  if(str.length <= 8){
+const simplifyStr = (str,i) =>{
+  if(str.length <= i){
     return str
   }
-  return str.slice(0,8) + '...'
+  return str.slice(0,i) + '...'
 }
 module.exports = {
   formatTime: formatTime,

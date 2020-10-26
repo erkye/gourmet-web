@@ -16,7 +16,7 @@ Page({
       // 当前页码
       pageNo: 1,
       // 每页大小
-      pageSize: 10,
+      pageSize: 5,
       //是否还有下一页
       hasNextPage: true,
     },

@@ -1,12 +1,12 @@
 <view class="menu-container">
   <view class="menu-title">
     <!-- 菜谱名称 -->
-    <view>名称：</view>
+    <!-- <view>名称：</view> -->
     <input placeholder="请输入菜谱的名称" model:value="{{title}}" />
   </view>
   <view class="menu-introd">
     <!-- 菜谱简介 -->
-    <view>简介：</view>
+    <!-- <view>简介：</view> -->
     <textarea placeholder="请输入菜谱的简介" model:value="{{introd}}" maxlength="50" auto-height></textarea>
   </view>
   <view class="menu-img">
@@ -20,7 +20,7 @@
       <view>名称</view>
       <view>数量</view>
       <view>
-        <button type="primary" size="mini" bind:tap="handleMaterialsAdd">添加</button>
+        <button type="default" size="mini" bind:tap="handleMaterialsAdd">添加</button>
       </view>
     </view>
     <view class="materials-body">
