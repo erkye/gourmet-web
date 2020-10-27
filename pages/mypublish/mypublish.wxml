@@ -1,11 +1,20 @@
 <view class="search-value">
+    <!-- 循环渲染出列表的每一项 handleLongPress：绑定的长按事件 data-id="{{item.id}}：传递参数菜谱id-->
     <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id" bind:longpress="handleLongPress" data-id="{{item.id}}">
+        <!-- 单击跳转 -->
         <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+            <!-- 菜谱封面图  -->
+            <!-- aspectFill：缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。 -->
             <image src="{{item.img}}" mode="aspectFill" />
+            <!-- 菜谱内容部分 -->
             <view class="item-content">
+                <!-- 标题 -->
                 <view class="item-title">{{item.title}}</view>
+                <!-- 简介 -->
                 <view class="item-introd">{{item.introd}}</view>
+                <!-- 用户昵称 -->
                 <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+                <!-- 浏览收藏信息部分 -->
                 <view class="item-scan">
                     <!-- 收藏 -->
                     <text class="iconfont icon-heart">{{item.favorites}}</text>

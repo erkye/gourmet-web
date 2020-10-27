@@ -27,6 +27,7 @@ Page({
 
   /* 获取分类信息 */
   async getMenuData(){
+    // 发起请求
     const {data:response} = await http.get('/classify/all')
     if(response.code === 1000){
       //console.log(response.data)

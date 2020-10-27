@@ -1,71 +1,95 @@
 /* pages/menucontent/menucontent.wxss */
+/* 头部图片 */
 .head-image{
+    /* 宽度给满 */
     width: 100%;
 }
+/* 菜谱主题部分 */
 .item-body{
+    /* 距离左右都20rpx */
     padding-left: 20rpx;
     padding-right: 20rpx;
 }
+/* 头部信息样式 */
 .item-head{
+    /* 居中 flex布局 两头分布 宽度 */
     align-items: center;
     display: flex;
     justify-content: space-between;
     height: 120rpx;
 }
+/* 标题样式 */
 .item-title{
+    /* 文字大小 粗细 相对定位 距离上面15rpx */
     font-size: x-large;
     font-weight: 600;
     position: relative;
     top: 15rpx;
 }
+/* 作者样式 */
 .item-user{
+    /* 相对定位 距离上面15rpx 颜色 */
     position: relative;
     top: 15rpx;
     color: darkgray;
 }
+/* 简介部分样式 */
 .item-introd{
+    /* 离上面的距离 文字大小 粗细 字体 */
     padding-top: 30rpx;
     font-size: large;
     font-weight: 520;
     font-family: sans-serif;
 }
+/* 材料展示部分样式 */
 .item-maxterials{
+    /* 离上面的距离 */
     padding-top: 40rpx;
 }
+/* 材料 标题样式 大的加粗的那个 */
 .maxterials-title{
     font-size: larger;
     font-weight: 600;
 }
+/* 每一个材料项的样式 */
 .maxterials-item{
+    /* flex布局 两头靠 字体大小 离上面多远 底部带...那种的边框 */
     display: flex;
     justify-content: space-between;
     font-size: medium;
     padding-top: 20rpx;
     border-bottom: 1px dotted #ececec;
 }
+/* 浏览量样式 */
 .item-scan{
     color: darkgray;
     font-size: x-small;
 }
+/* 做法部分整体样式 */
 .item-do{
+    /* 离上面多远 */
     padding-top: 40rpx;
 }
+/* 做法那俩字的样式 */
 .do-title{
     font-size: larger;
     font-weight: 600;
     padding-bottom: 40rpx;
 }
+/* 底部俩按钮的整体样式 */
 .bottom-btn{
     width: 100%;
     position: fixed;
     bottom: 20rpx;
     display: flex;
 }
+/* 按钮的样式 */
 .btn{
     border-radius: 40rpx;
     color: #fff;
     font-weight: 200;
 }
+/* 俩按钮颜色分开设置 */
 .btn-star{
     background-color: #bb2205;
 }

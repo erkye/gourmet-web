@@ -1,1 +1,2 @@
+<!-- 真的就一个按钮.... open-type="getUserInfo"：点击获取用户的信息 handleGetUserInfo：点击触发事件-->
 <button size="default" open-type="getUserInfo" type="primary" bindgetuserinfo="handleGetUserInfo">登录</button>

@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 查询到的数组
+    // 查询到菜谱数组
     menuList: [],
     // 用户昵称
     nickName: ''
@@ -17,18 +17,23 @@ Page({
    * 获取用户收藏的列表
    */
   async getMyStarList(){
+    /* 查询参数 用户昵称 */
     const params = {
       nickName : this.data.nickName
     }
 
+    /* 发起请求 */
     const {data:response} = await http.get('/mine/star',{params})
     console.log(response);
     if(response.code === 1000){
-      // 简化简介部分 太长了就用... 代替
+      // 标题简介部分 太长了就用... 代替
       response.data.map(item => {
+        /* 简介最多为8个字符 */
         item.introd = simplifyStr(item.introd,8);
+        /* 标题最多为7个字符 */
         item.title = simplifyStr(item.title,7)
       })
+      /* 设置数据 */
       this.setData({
         menuList:response.data
       })
@@ -38,6 +43,7 @@ Page({
   handleLongPress(e){
     // 用户长按的菜谱id
     const menuId = e.currentTarget.dataset.id
+    /* 在下面的回调函数中使用原来的this时改为that */
     let that = this
     wx.showModal({
       title: '提示',
@@ -60,15 +66,17 @@ Page({
   },
   // 取消收藏
   async cancelStar(menuId){
+    /* 请求参数 */
     const params = {
       menuId,
       nickName:this.data.nickName
     }
 
+    /* 发起请求 */
     const {data:response} = await http.get('/mine/cancelStar',{params})
     console.log(response);
     if(response.code === 1000){
-      if(response.data)// 刷新列表
+      if(response.data)// 成功取消收藏刷新列表
             this.getMyStarList()
       return response.data
     }
@@ -90,6 +98,7 @@ Page({
   onLoad: function (options) {
     // 获取用户信息
     const userinfo = wx.getStorageSync("userinfo")
+    /* 获取设置用户昵称 */
     const nickName = userinfo.nickName
     this.setData({
       nickName

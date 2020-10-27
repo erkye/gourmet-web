@@ -1,51 +1,80 @@
 /* pages/mine/mine.wxss */
+/* 用户头像大的背景图片后边的区域样式 */
 .user-info-wrap {
+  /* 宽度给满 高度给40%的屏幕高度 */
   width: 100%;
   height: 40vh;
+  /* 此处设置背景色的原因时稍后对背景图片进行模糊时，图片边缘区域会露出背景颜色 */
   background-color: black;
 }
+/* 用户头像 背景头像 用户昵称整体部分 */
 .user-img-warp {
+  /* 相对定位 */
   position: relative;
 }
+/* 背景图片样式 */
 .user-bg {
+  /* 宽度给满 高度40%屏幕高度 */
   width: 100%;
   height: 40vh;
+  /* 此出使用css3提供的过滤器 模糊 传入参数越大越模糊 */
   filter: blur(10rpx);
 }
+/* 用户小头像和用户昵称整体样式 */
 .user-info {
+  /* 绝对定位 */
   position: absolute;
+  /* 距离左侧50%（注意以组件的左上角为坐标点 
+  因此实际上组件的中心位置并未居中而是向右多移动组件一半的距离） */
   left: 50%;
+  /* 将组件在x轴（水平）向左回调组件的一半 此时才真正的水平居中 */
   transform: translateX(-50%);
+  /* 距离上面30% */
   top: 30%;
+  /* 里面的内容居中 */
   text-align: center;
 }
+/* 小头像样式 */
 .user-icon {
+  /* 高度宽度一致 正方形 */
   width: 150rpx;
   height: 150rpx;
+  /* 圆角为50% 变为圆形 */
   border-radius: 50%;
 }
+/* 用户昵称区域 */
 .user-name {
+  /* 外部离上面的距离 字体颜色 */
   margin-top: 30rpx;
   color: #fff;
 }
+/* 用户未登录时存放用户登录按钮组件的外部样式 */
 .user-nonlogin-warp {
+  /* 不写了 太多了... */
   width: 100%;
   height: 40vh;
   background-color: ghostwhite;
 }
+/* 未登录的按钮外部样式 */
 .user-nonlogin-warp .user-info {
+  /* 距离上面20% */
   top: 20%;
 }
+/* 登录按钮样式 */
 .user-nonlogin-warp .user-info .user-icon navigator {
+  /* 边框 圆角 背景色 */
   border: 2px solid #ea5455;
   border-radius: 20rpx;
   background-color: #ea5455;
 }
+/* 菜单功能区域整体样式 */
 .mine-menu{
+  /* 距离上面大图片组件的距离 */
     margin-top: 20rpx;
 }
-
+/* 每一项菜单的样式 */
 .mine-menu-item{
+  /* flex布局 两边靠 高度 垂直居中 背景色 底部边框 字体大小 粗细 */
     display: flex;
     justify-content: space-between;
     height: 100rpx;
@@ -55,10 +84,14 @@
     font-size: medium;
     font-weight: 500;
 }
+/* 每个菜单项里面的第一个view标签样式 就是我的发布 我的收藏那个字 */
 .mine-menu-item view:first-child{
+  /* 距离左侧 */
     margin-left: 30rpx;
 }
+/* 每个菜单项里面的最后一个view标签的样式 就是 > */
 .mine-menu-item view:last-child{
+  /* 字体样式 距离右侧的距离 */
     color: darkgray;
     margin-right: 30rpx;
 }

@@ -11,16 +11,20 @@ page{
     height: calc(100vh - 55px);
     display: flex;
 }
+/* 左侧菜单样式 占屏幕的大小 2/7 */
 .leftMenu{
     flex:2;
 }
+/* 右侧菜单的样式 5/7 */
 .rightMenu{
     flex:5;
 }
+/* 右侧菜单的样式 flex布局 竖向排列 */
 .rightMenuContianer{
     display: flex;
     flex-wrap: wrap;
 }
+/* 👈侧一级菜单每一个菜单项的样式 flex布局 字体大小高度 文字水平垂直居中 */
 .left_menu_item{
     display: flex;
     height: 80rpx;
@@ -28,16 +32,23 @@ page{
     align-items: center;
     font-size: 30rpx;
 }
+/* 👉侧二级菜单的样式 */
 .right_menu_item{
+    /* 边框 */
     border: 1px solid darkgray;
+    /* 宽度 居中 圆角 */
     width: 120rpx;
     text-align: center;
     border-radius: 20rpx;
+    /* 中间字体离边框的位置 左右4px 上下 4px */
     padding: 4px 4px;
+    /* 两个菜单项的相隔的位置 左右 8px 上下 0px */
     margin: 8px 0 0 8px;
     color: darkgrey;
 }
+/* 激活菜单的样式 */
 .active{
     color: #ea5455;
+    /* 右侧边框显示 */
     border-left: 5px solid currentColor;
 }

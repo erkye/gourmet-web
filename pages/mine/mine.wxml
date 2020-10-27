@@ -1,24 +1,36 @@
+<!-- 用户头像和昵称展示区域 -->
+<!-- wx:if="{{isLogin}}"只有已经登录时该区域才会显示 -->
 <view class="user-info-wrap" wx:if="{{isLogin}}">
     <view class="user-img-warp">
+        <!-- 背景图片 使用用户头像 -->
         <image class="user-bg" src="{{userInfo.avatarUrl}}" />
+        <!-- 用户信息部分 -->
         <view class="user-info">
+            <!-- 中间小的头像 -->
             <image class="user-icon" src="{{userInfo.avatarUrl}}"></image>
+            <!-- 用户昵称 -->
             <view class="user-name">{{userInfo.nickName}}</view>
         </view>
     </view>
 </view>
+<!-- wx:else 当用户没有登录时显示 -->
 <view class="user-nonlogin-warp" wx:else>
     <view class="user-info">
         <view class="user-icon">
+            <!-- 登录按钮 点击时跳转到登录页面 -->
             <navigator url="/pages/login/login">登录</navigator>
         </view>
     </view>
 </view>
+<!-- 用户登录显示功能栏 -->
+<!-- wx:if="{{isLogin}}"只有已经登录时该区域才会显示 -->
 <view class="mine-menu" wx:if="{{isLogin}}">
+    <!-- 我的收藏 -->
     <navigator url="/pages/mystar/mystar"  class="mine-menu-item">
         <view>我的收藏</view>
         <view>></view>
     </navigator>
+    <!-- 我的发布区域 -->
     <navigator url="/pages/mypublish/mypublish" class="mine-menu-item">
         <view>我的发布</view>
         <view>></view>

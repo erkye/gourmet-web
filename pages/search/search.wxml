@@ -6,13 +6,22 @@
     <view bind:tap="tapSearch">搜索</view>
 </view>
 <view class="search-value">
+    <!-- 遍历查询出来的菜谱列表 -->
     <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id">
+        <!-- 点击时携带菜谱id跳转菜谱详细页 -->
         <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+            <!-- 封面图片 -->
+            <!-- aspectFill：缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。 -->
             <image src="{{item.img}}" mode="aspectFill" />
+            <!-- 菜谱内容区域 -->
             <view class="item-content">
+                <!-- 标题 -->
                 <view class="item-title">{{item.title}}</view>
+                <!-- 简介 -->
                 <view class="item-introd">{{item.introd}}</view>
+                <!-- 用户昵称 -->
                 <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+                <!-- 收藏和浏览区域 -->
                 <view class="item-scan">
                     <!-- 收藏 -->
                     <text class="iconfont icon-heart">{{item.favorites}}</text>

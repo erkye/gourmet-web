@@ -17,8 +17,10 @@ const formatNumber = n => {
 /* 简介部分防止字符串过长导致样式出问题 */
 const simplifyStr = (str,i) =>{
   if(str.length <= i){
+    /* 字符串不足位数不进行任何操作 */
     return str
   }
+  /* 字符串超过位数 截取前i位 后边追加... */
   return str.slice(0,i) + '...'
 }
 module.exports = {

@@ -17,8 +17,10 @@ Page({
     // 查询到的数组
     menuList: []
   },
-  // 用户点击搜索按钮
-  async tapSearch(){
+  // 获取数据 isTapSearchFlag 用来标记是点击搜索按钮触发的还是页面触底函数触发的搜索
+  // 如果是搜索按钮触发的函数 不应该是以追加的方式添加新的数据
+  // 如果是页面触底函数触发的，表示获取下一页的数据 应该在原来数组的基础上进行追加数据
+  async getSearchList(isTapSearchFlag){
     //console.log(this.data.searchValue);
     // 查询参数
     const params = {
@@ -36,14 +38,28 @@ Page({
         item.introd = simplifyStr(item.introd,8);
         item.title = simplifyStr(item.title,7)
       })
+      // 新的搜索结果列表
+      let newList = []
+      if(isTapSearchFlag){
+        // 如果是搜索函数触发 不用追加数据
+        newList = response.data.list
+      }else{
+        // 如果是由触底函数触发 追加数据
+        newList = [...this.data.menuList,...response.data.list]
+      }
       this.setData({
         // 追加数据
-        menuList: [...this.data.menuList,...response.data.list],
+        menuList: newList,
         // 修改是否还有下一页
         hasNextPage: response.data.hasNextPage
       })
     }
 
+  },
+  // 点击搜索按钮触发
+  tapSearch(){
+    // 调用获取数据的函数 传递参数表示是点击搜索按钮调用的
+    this.getSearchList(true)
   },
 
   /**
@@ -59,7 +75,7 @@ Page({
 
     // 当页面参数中有传递的值时直接触发搜索点击事件
     if(key != null && key != ''){
-      this.tapSearch()
+      this.getSearchList(true)
     }
     
 
@@ -71,8 +87,8 @@ Page({
         // 页数+1
         pageNo: this.data.pageNo+1
       })
-      // 发起请求
-      this.tapSearch()
+      // 发起请求 传递参数false 表示不是点击搜索按钮调用的函数 而是页面触底函数发生的调用
+      this.getSearchList(false)
     }else{
       wx.showToast({
         title: '已经到底了' ,

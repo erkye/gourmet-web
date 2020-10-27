@@ -1,20 +1,22 @@
 <view class="classify">
+<!-- 搜索组件 已经在该页面json配置文件中引入 -->
     <searchInput></searchInput>
 
     <view class="menu_container">
-    <!-- 遍历渲左侧一级菜单 -->
+    <!-- 遍历渲左侧一级菜单 scroll-y ：设置滚动方向为竖向y轴-->
         <scroll-view class="leftMenu" scroll-y>
-        <!-- 根据当前的激活索引设置激活的一级菜单 设置点击事件handleItemTap 传递参数 data-index="{{index}}" -->
+        <!-- 根据当前的激活索引设置激活的一级菜单 设置点击事件handleItemTap 传递参数当前一级菜单对应的索引 data-index="{{index}}" -->
+            <!-- 激活索引显示激活样式的原理：js中存储一个激活的索引，当前菜单的索引===激活索引时，当前菜单项添加激活样式 -->
             <view class="left_menu_item {{index===activeIndex?'active':''}}" wx:for="{{leftMenuList}}" wx:key="*this"
              bindtap="handleItemTap" data-index="{{index}}">
             {{item}}
             </view>
         </scroll-view>
-        <!-- 遍历显示右侧二级菜单 -->
+        <!-- 遍历显示右侧二级菜单 scroll-y ：设置滚动方向为竖向y轴 -->
         <scroll-view class="rightMenu" scroll-y>
         <view class="rightMenuContianer">
             <view class="right_menu_item" wx:for="{{rightMenuList}}" wx:key="*this">
-            <!-- 点击二级菜单项时直接携带二级菜单的名称跳转到搜索页面 -->
+            <!-- 点击二级菜单项时直接携带二级菜单的名称跳转到搜索页面 携带参数为二级分类的名称搜素页面使用 -->
             <navigator url="/pages/search/search?key={{item}}">
                 {{item}}
             </navigator>

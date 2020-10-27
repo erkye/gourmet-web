@@ -14,5 +14,5 @@ const http = axios.create({
 
 })
 
-// 到处实例
+// 导出实例
 module.exports = {http,serverIp} 

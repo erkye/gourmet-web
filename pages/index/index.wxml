@@ -31,6 +31,7 @@
         <image src="https://i.loli.net/2020/10/02/eoTmay9qS4LPOiV.jpg"></image>
         <text>早餐</text>
       </view> -->
+      <!-- 下面的分类项实际都是跳转到搜素页面 携带不同的查询参数key -->
       <navigator url="/pages/search/search?key=早餐" class="classify-item" style="color:#ff414d">
         <text class="iconfont icon-food"></text>
         <view>早餐</view>
@@ -50,6 +51,7 @@
     </view>
   </view>
   <!-- 常用分类部分end -->
+  <!-- 这相当于一个 hr 标签 好看的 -->
   <view class="line" style="width:100%;height: 10rpx"></view>
   <!-- 最新佳作 -->
   <view>
