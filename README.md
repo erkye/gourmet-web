@@ -1515,6 +1515,48 @@ getMenuData函数如下：
   },
 ```
 
+返回数据格式如下：
+
+// 请求菜谱的数据
+    const { data: menuResponse } = await http.get("/menu/query", { params });
+
+```json
+{
+  "code": 1000,
+  "msg": "操作成功",
+  "data": {
+    "id": 11,
+    "img": "http://10.178.167.88:3000/api/images/fcbec34b-8350-4548-af98-de8051b71d7c.jpg",
+    "title": "清炒白菜",
+    "introd": "可好吃了",
+    "nickname": "java.util.Man",
+    "recommend": false,
+    "content": "\u003cul data-checked\u003d\"false\" wx:nodeid\u003d\"119\"\u003e\u003cli wx:nodeid\u003d\"104\"\u003e杀白菜\u003c/li\u003e\u003cli wx:nodeid\u003d\"125\"\u003e洗白菜\u003c/li\u003e\u003cli wx:nodeid\u003d\"129\"\u003e切白菜\u003c/li\u003e\u003cli wx:nodeid\u003d\"131\"\u003e炒白菜\u003c/li\u003e\u003cli wx:nodeid\u003d\"132\"\u003e吃白菜\u003c/li\u003e\u003c/ul\u003e",
+    "pageviews": 12,
+    "favorites": 0
+  }
+}
+```
+
+// 请求菜谱材料列表的数据
+    const { data: materialsResponse } = await http.get("/menu/materials", {params});
+
+```json
+{
+  "code": 1000,
+  "msg": "操作成功",
+  "data": [
+    {
+      "id": 29,
+      "menuId": 11,
+      "name": "大白菜",
+      "quantity": "10棵"
+    },
+    ...
+  ]
+}
+```
+
 获取的数据设置到data属性中
 
 ```js
