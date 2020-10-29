@@ -1198,6 +1198,268 @@ import {simplifyStr}  from '../../utils/util'
 
 ### 分类页
 
+#### 布局
+
+![image-20201029145326543](https://gitee.com//lifazhan/mypics/raw/master/img/20201029145326.png)
+
+分类页分为搜索区域和分类区域，分类区域又分为一级分类区域和二级分类区域，点击不同的一级分类时会切换二级分类
+
+搜索区域
+
+#### 分区域介绍
+
+##### 搜索区域
+
+此处与首页的搜索栏完全一致，使用同一个搜索组件，参照首页-分区域介绍-搜索栏部分
+
+##### 分类区域
+
+![image-20201029150139498](https://gitee.com//lifazhan/mypics/raw/master/img/20201029150139.png)
+
+* 两个区域都是滚动视图，需要使用scroll-view标签
+* 都需要循环渲染 wx-for
+* 需要两个数组，一个一级分类，一个二级分类
+* 一级分类应该有点击事件，点击时激活并修改二级分类的数组
+* 二级分类点击时应该跳转到搜索页 navigator
+
+**classify.wxml**
+
+```html
+<view class="menu_container">
+    <!-- 遍历渲左侧一级菜单 scroll-y ：设置滚动方向为竖向y轴-->
+        <scroll-view class="leftMenu" scroll-y>
+        <!-- 根据当前的激活索引设置激活的一级菜单 设置点击事件handleItemTap 传递参数当前一级菜单对应的索引 data-index="{{index}}" -->
+            <!-- 激活索引显示激活样式的原理：js中存储一个激活的索引，当前菜单的索引===激活索引时，当前菜单项添加激活样式 -->
+            <view class="left_menu_item {{index===activeIndex?'active':''}}" wx:for="{{leftMenuList}}" wx:key="*this"
+             bindtap="handleItemTap" data-index="{{index}}">
+            {{item}}
+            </view>
+        </scroll-view>
+        <!-- 遍历显示右侧二级菜单 scroll-y ：设置滚动方向为竖向y轴 -->
+        <scroll-view class="rightMenu" scroll-y>
+        <view class="rightMenuContianer">
+            <view class="right_menu_item" wx:for="{{rightMenuList}}" wx:key="*this">
+            <!-- 点击二级菜单项时直接携带二级菜单的名称跳转到搜索页面 携带参数为二级分类的名称搜素页面使用 -->
+            <navigator url="/pages/search/search?key={{item}}">
+                {{item}}
+            </navigator>
+            </view>
+        </view>
+        </scroll-view>
+    </view>
+```
+
+说明：
+
+* bindtap="handleItemTap" 一级分类点击事件 data-index="{{index}}" 传递参数一级菜单的id
+* <navigator url="/pages/search/search?key={{item}}"> 二级分类点击携带二级分类标签的内容跳转到搜索页面
+
+**样式文件 classify.wxss**
+
+```css
+page{
+    height: 100%;
+}
+
+.classify{
+    height: 100%;
+}
+/* 分类菜单容器样式 */
+.menu_container{
+    /* 高度需要设置为全屏幕高度-输入框组件的高度 */
+    height: calc(100vh - 55px);
+    display: flex;
+}
+/* 左侧菜单样式 占屏幕的大小 2/7 */
+.leftMenu{
+    flex:2;
+}
+/* 右侧菜单的样式 5/7 */
+.rightMenu{
+    flex:5;
+}
+/* 右侧菜单的样式 flex布局 竖向排列 */
+.rightMenuContianer{
+    display: flex;
+    flex-wrap: wrap;
+}
+/* 👈侧一级菜单每一个菜单项的样式 flex布局 字体大小高度 文字水平垂直居中 */
+.left_menu_item{
+    display: flex;
+    height: 80rpx;
+    justify-content: center;
+    align-items: center;
+    font-size: 30rpx;
+}
+/* 👉侧二级菜单的样式 */
+.right_menu_item{
+    /* 边框 */
+    border: 1px solid darkgray;
+    /* 宽度 居中 圆角 */
+    width: 120rpx;
+    text-align: center;
+    border-radius: 20rpx;
+    /* 中间字体离边框的位置 左右4px 上下 4px */
+    padding: 4px 4px;
+    /* 两个菜单项的相隔的位置 左右 8px 上下 0px */
+    margin: 8px 0 0 8px;
+    color: darkgrey;
+}
+/* 激活菜单的样式 */
+.active{
+    color: #ea5455;
+    /* 右侧边框显示 */
+    border-left: 5px solid currentColor;
+}
+```
+
+样式文件只关注最后的激活样式即可！
+
+**classify.js 逻辑文件**
+
+首先需要在data属性中准备数据，分别为两个分类区域的数组、一级分类激活的索引、菜单整体的数据
+
+```js
+ /**
+   * 页面的初始数据
+   */
+  data: {
+    // 左侧一级菜单
+    leftMenuList:[],
+    // 右侧二级菜单
+    rightMenuList:[],
+    // 激活的菜单
+    activeIndex: 0,
+    // 菜单数据
+    CatesData: []
+
+  },
+```
+
+其中菜单整体的数据CatesData的作用是将后端返回所有的分类数据都保存起来，当用户点击不同的一级分类时，无需再次从后端获取，从CatesData中获取即可
+
+获取分类数据方法
+
+```js
+ /* 获取分类信息 */
+  async getMenuData(){
+    // 发起请求
+    const {data:response} = await http.get('/classify/all')
+    if(response.code === 1000){
+      //console.log(response.data)
+      // 将一级菜单映射为字符串数组
+      let leftMenuData = response.data.map(v=>v.name)
+      // 一级菜单中的第一项映射为字符串数组
+      let rightMenuData = response.data[0].childs.map(v=>v.name)
+      this.setData({
+        // 设置左侧一级菜单数据
+        leftMenuList: leftMenuData,
+        // 设置右侧二级菜单数据
+        rightMenuList: rightMenuData,
+        // 将完整的后端返回数据保存到data中，方便后面切换事件使用
+        CatesData: response.data
+      })
+    }
+  },
+```
+
+数据格式如下：
+
+```json
+{
+  "code": 1000,
+  "msg": "操作成功",
+  "data": [
+    {
+      "id": 2,
+      "name": "肉类",
+      "parentId": 0,
+      "childs": [
+        {
+          "id": 15,
+          "name": "猪肉",
+          "parentId": 2
+        },
+        {
+          "id": 16,
+          "name": "排骨",
+          "parentId": 2
+        },
+        ...
+      ]
+    },
+    {
+      "id": 3,
+      "name": "蛋类",
+      "parentId": 0,
+      "childs": [
+        {
+          "id": 32,
+          "name": "鸡蛋",
+          "parentId": 3
+        },
+        {
+          "id": 33,
+          "name": "鸭蛋",
+          "parentId": 3
+        },
+        ...
+      ]
+    },
+   ...
+  ]
+}
+```
+
+说明：
+
+* response.data.map(v=>v.name) map函数
+
+  response.data是一个数组，map函数可以将括号内的方法再数组每一项中都执行一次效果等同于下面代码
+
+  ```js
+  let leftMenuData = []
+  for(let i=0; i<response.data.length; i++){
+      const name = response.data[i].name
+      leftMenuData.push(name)
+  }
+  ```
+
+获取数据的方法需要在页面加载时就调用
+
+```js
+/**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 获取分类信息
+    this.getMenuData()
+  },
+```
+
+从代码中就可以看出，默认激活的一级菜单时第一项（index为0）,二级菜单数组也是使用的一级菜单第一项对应的数组
+
+当用户点击不同的一级分类时，在页面上绑定了一个单击事件handleItemTap，对应的代码如下：
+
+```js
+// 左侧一级分类点击事件
+  handleItemTap(e){
+    //console.log(e);
+    // 获取点击的索引
+    const index = e.currentTarget.dataset.index
+    // 根据索引和后端返回的完整数据设置左侧菜单的数据
+    let rightMenuData = this.data.CatesData[index].childs.map(v=>v.name)
+    this.setData({
+      // 修改当前的激活索引
+      activeIndex: index,
+      // 修改右侧的数据
+      rightMenuList: rightMenuData
+    })
+  }
+```
+
+
+
 ### 菜谱详细内容页
 
 ### 发布/编辑页
