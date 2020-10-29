@@ -1462,7 +1462,388 @@ page{
 
 ### 菜谱详细内容页
 
+#### 布局
+
+![image-20201029155420409](https://gitee.com//lifazhan/mypics/raw/master/img/20201029155420.png)
+
+![image-20201029155531695](https://gitee.com//lifazhan/mypics/raw/master/img/20201029155531.png)
+
+菜谱详细内容页分为四个区域，分别为菜谱信息区域、用料区域、做法区域、按钮区域。
+
+详细页面无论时从那个页面跳转过来的，都会携带菜谱的id，在菜谱详细页里需要使用菜谱id作为参数去后端请求完整的菜谱数据，因此页面加载函数如下：
+
+menucontent.js
+
+```js
+/**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    /* 获取其他页面条状到该页面时携带的菜谱id参数 */
+    const id = options.id;
+    /* 使用菜谱id获取菜谱额数据 */
+    this.getMenuData(id);
+  },
+
+```
+
+getMenuData函数如下：
+
+```js
+/* 根据菜谱的id获取菜谱相关的数据 */
+  async getMenuData(id) {
+    // 请求参数
+    const params = {
+      id
+    }
+    // 请求菜谱的数据
+    const { data: menuResponse } = await http.get("/menu/query", { params });
+    if (menuResponse.code === 1000) {
+      // 设置返回菜谱数据
+      this.setData({
+        menuItem: menuResponse.data,
+      });
+    }
+    // 请求菜谱材料列表的数据
+    const { data: materialsResponse } = await http.get("/menu/materials", {params});
+    if (materialsResponse.code === 1000) {
+      // 设置材料列表
+      this.setData({
+        materialsList: materialsResponse.data,
+      });
+    }
+  },
+```
+
+获取的数据设置到data属性中
+
+```js
+/**
+   * 页面的初始数据
+   */
+  data: {
+    // 菜谱
+    menuItem: {},
+    // 用料数组
+    materialsList: [],
+  },
+```
+
+#### 分区域介绍
+
+##### 菜谱信息区域
+
+![image-20201029161241575](https://gitee.com//lifazhan/mypics/raw/master/img/20201029161241.png)
+
+此区域需要设置封面大图、标题、作者、浏览信息、收藏信息、简介，页面结构如下：
+
+menucontent.wxml
+
+```html
+<!-- 头部图片 -->
+<image class="head-image" src="{{menuItem.img}}" mode="aspectFill"></image>
+<view class="item-body">
+    <!-- 标题作者 -->
+    <view class="item-head">
+        <view class="item-title">{{menuItem.title}}</view>
+        <text class="item-user iconfont icon-user" decode>{{menuItem.nickname}}&nbsp;&nbsp;</text>
+    </view>
+    <view class="item-scan">
+        <text>{{menuItem.pageviews}}次浏览·{{menuItem.favorites}}次收藏</text>
+    </view>
+    <!-- 菜谱描述 -->
+    <view class="item-introd">
+        <text decode>&nbsp;&nbsp;{{menuItem.introd}}</text>
+    </view>
+```
+
+样式如下：
+
+menucontent.wxss
+
+```css
+/* 头部图片 */
+.head-image{
+    /* 宽度给满 */
+    width: 100%;
+}
+/* 菜谱主题部分 */
+.item-body{
+    /* 距离左右都20rpx */
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+}
+/* 头部信息样式 */
+.item-head{
+    /* 居中 flex布局 两头分布 宽度 */
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 120rpx;
+}
+/* 标题样式 */
+.item-title{
+    /* 文字大小 粗细 相对定位 距离上面15rpx */
+    font-size: x-large;
+    font-weight: 600;
+    position: relative;
+    top: 15rpx;
+}
+/* 作者样式 */
+.item-user{
+    /* 相对定位 距离上面15rpx 颜色 */
+    position: relative;
+    top: 15rpx;
+    color: darkgray;
+}
+/* 简介部分样式 */
+.item-introd{
+    /* 离上面的距离 文字大小 粗细 字体 */
+    padding-top: 30rpx;
+    font-size: large;
+    font-weight: 520;
+    font-family: sans-serif;
+}
+/* 浏览量样式 */
+.item-scan{
+    color: darkgray;
+    font-size: x-small;
+}
+```
+
+只是将js中的数据显示到页面，无逻辑代码
+
+##### 用料区域
+
+![image-20201029161652582](https://gitee.com//lifazhan/mypics/raw/master/img/20201029161652.png)
+
+* 用料存放在数组中，肯定要循环遍历渲染 wx-for
+
+页面结构如下：
+
+```html
+<!-- 用料表 -->
+    <view class="item-maxterials">
+        <view class="maxterials-title">用料</view>
+        <view class="maxterials-item" wx:for="{{materialsList}}" wx:key="item.id">
+            <view>{{item.name}}</view>
+            <view>{{item.quantity}}</view>
+        </view>
+    </view>
+```
+
+样式文件：
+
+```css
+/* 材料展示部分样式 */
+.item-maxterials{
+    /* 离上面的距离 */
+    padding-top: 40rpx;
+}
+/* 材料 标题样式 大的加粗的那个 */
+.maxterials-title{
+    font-size: larger;
+    font-weight: 600;
+}
+/* 每一个材料项的样式 */
+.maxterials-item{
+    /* flex布局 两头靠 字体大小 离上面多远 底部带...那种的边框 */
+    display: flex;
+    justify-content: space-between;
+    font-size: medium;
+    padding-top: 20rpx;
+    border-bottom: 1px dotted #ececec;
+}
+```
+
+只是将js中的数据显示到页面，无逻辑代码
+
+##### 做法区域 
+
+![image-20201029161953364](https://gitee.com//lifazhan/mypics/raw/master/img/20201029161953.png)
+
+* 做法部分在编辑时时通过富文本编辑器，因此菜谱的实际内容时html，这部分渲染需要用到 rich-text，来渲染html代码
+
+页面结构如下：
+
+```html
+<!-- 做法 -->
+    <view class="item-do">
+        <view class="do-title">做法</view>
+        <view class="do-body">
+            <!-- 使用富文本渲染页面 -->
+            <!-- 添加几个<br/>换行符，不然最下面的会被底部按钮挡住 -->
+            <rich-text nodes="{{menuItem.content}}<br/><br/></br><br/>"></rich-text>
+        </view>
+    </view>
+```
+
+说明：
+
+* rich-text 标签的nodes属性可以接受一个对象或者一个html样式的字符串，这里使用的时字符串
+
+样式文件
+
+```css
+/* 做法部分整体样式 */
+.item-do{
+    /* 离上面多远 */
+    padding-top: 40rpx;
+}
+/* 做法那俩字的样式 */
+.do-title{
+    font-size: larger;
+    font-weight: 600;
+    padding-bottom: 40rpx;
+}
+```
+
+只是将js中的数据显示到页面，无逻辑代码
+
+##### 按钮区域
+
+![image-20201029162356156](https://gitee.com//lifazhan/mypics/raw/master/img/20201029162356.png)
+
+* 两个按钮要始终悬浮在页面底部
+* 实现收藏和分享功能
+
+页面结构如下：
+
+```html
+<!-- 最下面的俩按钮 -->
+<view class="bottom-btn">
+<!-- 绑定点击触发事件 handleStarMeun-->
+    <button class="btn btn-star" bind:tap="handleStarMeun">收藏</button>
+    <!-- 分享按钮不用设置触发事件 将open-type设置为share即可 -->
+    <button class="btn btn-share"  open-type="share">分享</button>
+</view>
+```
+
+说明：
+
+* bind:tap="handleStarMeun" 收藏按钮绑定了一个点击事件，收藏功能需要自己实现
+* open-type="share" 分享按钮无需自己实现，有微信原生框架提供，指定open-type即可
+
+样式文件如下：
+
+```css
+/* 底部俩按钮的整体样式 */
+.bottom-btn{
+    width: 100%;
+    position: fixed;
+    bottom: 20rpx;
+    display: flex;
+}
+/* 按钮的样式 */
+.btn{
+    border-radius: 40rpx;
+    color: #fff;
+    font-weight: 200;
+}
+/* 俩按钮颜色分开设置 */
+.btn-star{
+    background-color: #bb2205;
+}
+.btn-share{
+    background-color: #f6830f;
+}
+```
+
+说明：
+
+* position: fixed; 实现两个按钮悬浮在页面上
+
+收藏逻辑实现：
+
+```js
+// 用户点击收藏菜谱
+  async handleStarMeun() {
+    /* 先确保用户已经登录 */
+    // 从缓存中获取
+    const userInfo = wx.getStorageSync("userinfo");
+    // 对象判空不可以直接使用 === null来判断
+    if (Object.keys(userInfo) != 0) {
+      // 设置用户信息 修改用户登录状态
+      this.setData({
+        nickName: userInfo.nickName,
+      });
+    } else {
+      // 用户未登录 先登录
+      wx.navigateTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    // 请求参数
+    const params = {
+      nickName: this.data.nickName,
+      menuId: this.data.menuItem.id
+    };
+
+    /* 发起请求 */
+    const { data: response } = await http.get("/menu/star",{params})
+    if(response.code === 1000){
+      // 收藏成功后会返回true
+      if(response.data){
+        /* 提示用户收藏成功 */
+        wx.showToast({
+          title: '收藏成功',
+          icon: 'success',
+          duration: 2000
+        })
+        return
+      }
+    }
+    /* 否则提示用户收藏失败 */
+    wx.showToast({
+      title: '收藏失败',
+      icon: 'none',
+      duration: 2000
+    })
+
+  },
+```
+
+因为收藏必须要知道当前登录用户是谁，点击收藏按钮的收藏成功前提必须已经登录。因此在方法开头从本地Storage中获取登录信息，获取不到则跳转到登录页面，获取成功则使用用户昵称作为参数发起收藏请求到后端。
+
+同时我们需要在页面data属性添加一个用户（登录用户）昵称的属性，同时在页面加载时尝试从本地Storage获取一次用户信息，获取不到页没有关系，因为用户不一定点击收藏按钮！
+
+data 属性如下：
+
+```
+/**
+   * 页面的初始数据
+   */
+  data: {
+    // 用户昵称
+    nickName: "",
+  },
+```
+
+页面加载函数添加下面代码:
+
+```js
+/**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 从缓存中获取
+    const userInfo = wx.getStorageSync("userinfo");
+    // 对象判空不可以直接使用 === null来判断
+    if (Object.keys(userInfo) != 0) {
+      // 设置用户信息 修改用户登录状态
+      this.setData({
+        nickName: userInfo.nickName,
+      });
+    }
+  },
+```
+
+
+
 ### 发布/编辑页
+
+太丑了，略
 
 ### 个人中心页
 
