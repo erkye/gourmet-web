@@ -85,6 +85,7 @@ Page({
   },
   // 页面触底函数
   onReachBottom: function () {
+    // 如果还有下一页
     if (this.data.latestParams.hasNextPage) {
       this.setData({
         latestParams: {
@@ -97,6 +98,7 @@ Page({
       // 发起请求
       this.getLatestMenuData();
     } else {
+      // 没有下一页了
       wx.showToast({
         title: "已经到底了",
         icon: "none",
