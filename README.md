@@ -8,23 +8,42 @@
 
 数据库使用MySQL 8.0。
 
-### 微信小程序端（仅列举，自行百度瞎吹）
+### 开发环境
 
-* 微信小程序端使用原生开发框架
+#### 微信小程序端
+
+* 开发工具：微信开发者工具、Visual Studio Code
+
 * 使用webpack管理项目
+* 微信小程序端使用原生开发框架
 * 使用npm管理项目依赖
 * 项目开发的所有图标资源均使用[阿里巴巴矢量图库](https://www.iconfont.cn/)
 * 使用axios发起服务端请求
 * 调试基本库选择2.13.1
 * 使用git进行版本控制
 
-### 服务端（不是重点，放上凑字数）
+#### 服务端
 
-* 使用Java开发，框架使用Spring Boot + MyBatis
+* 开发语言：Java
+* 开发工具：IntelliJ IDEA
+* 主要框架：Spring Boot 、MyBatis
+* 使用Maven管理项目
+* 使用git对项目进行版本控制
 
-### 数据库
+#### 数据库
 
-使用MySQL 8.0
+* 数据库类型：MySQL 8.0
+* 统一字符编码：utf8mb4
+* 数据库管理工具：Navicat Premium
+
+#### 服务器
+
+* 腾讯云服务器：1核1GB 带宽1M
+* 系统：CentOS 7.5
+* JDK版本：JDK8
+* 管理工具：XShell、Xftp
+
+## 数据库
 
 **表概览**（6）
 
@@ -1852,7 +1871,7 @@ menucontent.wxss
 
 data 属性如下：
 
-```
+```js
 /**
    * 页面的初始数据
    */
@@ -1889,9 +1908,769 @@ data 属性如下：
 
 ### 个人中心页
 
+#### 布局
+
+个人中心分为两种状态，一是已登录状态下，效果如下：
+
+![image-20201030145532595](https://gitee.com//lifazhan/mypics/raw/master/img/20201030145539.png)
+
+二是未登录状态下，效果如下：
+
+![image-20201030145724621](https://gitee.com//lifazhan/mypics/raw/master/img/20201030145724.png)
+
+两种状态虽然页面不同，然是均属mine页面，因此，页面的实现思路如下：
+
+* 不同状态显示不同页面效果 ，wx-if 条件渲染
+* 头像区域样式
+* 点击功能跳转对应的页面 navigator
+
+#### 分区域介绍
+
+##### 未登录状态页面
+
+![image-20201030150414509](https://gitee.com//lifazhan/mypics/raw/master/img/20201030150414.png)
+
+在未登录状态下页面只是显示一个登录按钮，点击该登录按钮时，会跳转到登录授权页面，页面代码如下：
+
+mine.wxml
+
+```html
+<!-- wx:else 当用户没有登录时显示 -->
+<view class="user-nonlogin-warp" wx:else>
+    <view class="user-info">
+        <view class="user-icon">
+            <!-- 登录按钮 点击时跳转到登录页面 -->
+            <navigator url="/pages/login/login">登录</navigator>
+        </view>
+    </view>
+</view>
+```
+
+说明：
+
+* wx:else 时与上面登录显示区域的 wx:if 一起使用的，请看完整页面代码
+
+需要将登录按钮样式修改为小按钮的样子，样式大代码如下：
+
+mine.wxss
+
+```css
+/* 用户未登录时存放用户登录按钮组件的外部样式 */
+.user-nonlogin-warp {
+  /* 不写了 太多了... */
+  width: 100%;
+  height: 40vh;
+  background-color: ghostwhite;
+}
+/* 未登录的按钮外部样式 */
+.user-nonlogin-warp .user-info {
+  /* 距离上面20% */
+  top: 20%;
+}
+/* 登录按钮样式 */
+.user-nonlogin-warp .user-info .user-icon navigator {
+  /* 边框 圆角 背景色 */
+  border: 2px solid #ea5455;
+  border-radius: 20rpx;
+  background-color: #ea5455;
+}
+```
+
+无逻辑代码~
+
+##### 登录状态-头像显示区域
+
+![image-20201030150439565](https://gitee.com//lifazhan/mypics/raw/master/img/20201030150439.png)
+
+此处需要使用用户的头像和用户的名称，因此必须现在js代码中获取到用户信息的对象
+
+mine.js
+
+首先在data中定义用户对象和是否登录
+
+```js
+/**
+   * 页面的初始数据
+   */
+  data: {
+    // 用户信息
+    userInfo: {},
+    // 用户是否登录
+    isLogin:false
+  },
+```
+
+在页面显示时(onShow函数)尝试从Storage中获取用户对象，并已是否获取到判断用户是否登录
+
+```js
+  onShow(){
+    // 从缓存中获取
+    const userInfo = wx.getStorageSync('userinfo')
+    // 对象判空不可以直接使用 === null来判断
+    if(Object.keys(userInfo) != 0){
+      // 设置用户信息 修改用户登录状态
+      this.setData({
+        userInfo,
+        isLogin: true
+      })
+    }else{
+      // 没有获取到用户信息
+      this.setData({
+        isLogin:false
+      })
+    }
+```
+
+**特别注意：**
+
+此处使用onShow函数而不是onLoad函数，onLoad函数只是页面加载时才会执行，用户未登录的话跳转到登录授权页面登录，此时个人中心页面并不时关闭状态，类似于后台运行状态，在登录成功后返回到个人中心页时，无需再次加载，因此onLoad不会执行，即便已经登录成功个人中心页面的数据也不会刷新，还是未登录状态。而onShow函数只要页面显示就会执行！
+
+用户信息格式如下：
+
+```json
+{
+	"nickName": "java.util.Man",
+	"gender": 1,
+	"language": "zh_CN",
+	"city": "Linyi",
+	"province": "Shandong",
+	"country": "China",
+	"avatarUrl": "https://thirdwx.qlogo.cn/mmopen/vi_32/S7r59dLHPO0Xo5fO14HhAP6ibsicziaAC8UkTLKt7e7wtu6XJia6A7WickLegse78Ye33dKHtwBicMviauwjPSGuiacHJg/132"
+}
+```
+
+获取到用户对象后，就可以在页面渲染
+
+```html
+<!-- 用户头像和昵称展示区域 -->
+<!-- wx:if="{{isLogin}}"只有已经登录时该区域才会显示 -->
+<view class="user-info-wrap" wx:if="{{isLogin}}">
+    <view class="user-img-warp">
+        <!-- 背景图片 使用用户头像 -->
+        <image class="user-bg" src="{{userInfo.avatarUrl}}" />
+        <!-- 用户信息部分 -->
+        <view class="user-info">
+            <!-- 中间小的头像 -->
+            <image class="user-icon" src="{{userInfo.avatarUrl}}"></image>
+            <!-- 用户昵称 -->
+            <view class="user-name">{{userInfo.nickName}}</view>
+        </view>
+    </view>
+</view>
+```
+
+这里只是简单的把data中的数据填充到页面上，难点在与样式上
+
+```css
+/* 用户头像大的背景图片后边的区域样式 */
+.user-info-wrap {
+  /* 宽度给满 高度给40%的屏幕高度 */
+  width: 100%;
+  height: 40vh;
+  /* 此处设置背景色的原因时稍后对背景图片进行模糊时，图片边缘区域会露出背景颜色 */
+  background-color: black;
+}
+/* 用户头像 背景头像 用户昵称整体部分 */
+.user-img-warp {
+  /* 相对定位 */
+  position: relative;
+}
+/* 背景图片样式 */
+.user-bg {
+  /* 宽度给满 高度40%屏幕高度 */
+  width: 100%;
+  height: 40vh;
+  /* 此出使用css3提供的过滤器 模糊 传入参数越大越模糊 */
+  filter: blur(10rpx);
+}
+/* 用户小头像和用户昵称整体样式 */
+.user-info {
+  /* 绝对定位 */
+  position: absolute;
+  /* 距离左侧50%（注意以组件的左上角为坐标点 
+  因此实际上组件的中心位置并未居中而是向右多移动组件一半的距离） */
+  left: 50%;
+  /* 将组件在x轴（水平）向左回调组件的一半 此时才真正的水平居中 */
+  transform: translateX(-50%);
+  /* 距离上面30% */
+  top: 30%;
+  /* 里面的内容居中 */
+  text-align: center;
+}
+/* 小头像样式 */
+.user-icon {
+  /* 高度宽度一致 正方形 */
+  width: 150rpx;
+  height: 150rpx;
+  /* 圆角为50% 变为圆形 */
+  border-radius: 50%;
+}
+/* 用户昵称区域 */
+.user-name {
+  /* 外部离上面的距离 字体颜色 */
+  margin-top: 30rpx;
+  color: #fff;
+}
+```
+
+说明：
+
+样式中重点注意背景模糊实现，以及给背景图片下面填充背景色的目的
+
+
+
+##### 登陆状态-功能区域
+
+![image-20201030151857489](https://gitee.com//lifazhan/mypics/raw/master/img/20201030151857.png)
+
+这部分比较简单，只要使用navigator，点击时跳转到对应的页面即可，也是需要登录后才能显示
+
+```html
+<!-- 用户登录显示功能栏 -->
+<!-- wx:if="{{isLogin}}"只有已经登录时该区域才会显示 -->
+<view class="mine-menu" wx:if="{{isLogin}}">
+    <!-- 我的收藏 -->
+    <navigator url="/pages/mystar/mystar"  class="mine-menu-item">
+        <view>我的收藏</view>
+        <view>></view>
+    </navigator>
+    <!-- 我的发布区域 -->
+    <navigator url="/pages/mypublish/mypublish" class="mine-menu-item">
+        <view>我的发布</view>
+        <view>></view>
+    </navigator>
+</view>
+```
+
+样式代码
+
+```css
+/* 菜单功能区域整体样式 */
+.mine-menu{
+  /* 距离上面大图片组件的距离 */
+    margin-top: 20rpx;
+}
+/* 每一项菜单的样式 */
+.mine-menu-item{
+  /* flex布局 两边靠 高度 垂直居中 背景色 底部边框 字体大小 粗细 */
+    display: flex;
+    justify-content: space-between;
+    height: 100rpx;
+    align-items: center;
+    background-color: ghostwhite;
+    border-bottom: 1px solid #ececec;
+    font-size: medium;
+    font-weight: 500;
+}
+/* 每个菜单项里面的第一个view标签样式 就是我的发布 我的收藏那个字 */
+.mine-menu-item view:first-child{
+  /* 距离左侧 */
+    margin-left: 30rpx;
+}
+/* 每个菜单项里面的最后一个view标签的样式 就是 > */
+.mine-menu-item view:last-child{
+  /* 字体样式 距离右侧的距离 */
+    color: darkgray;
+    margin-right: 30rpx;
+}
+```
+
+无逻辑代码~
+
 ### 登录授权页
 
-### 我的发布页
 
-### 我的收藏页
 
+![image-20201030152311867](https://gitee.com//lifazhan/mypics/raw/master/img/20201030152312.png)
+
+就一按钮....
+
+所以页面代码就一行
+
+```html
+<!-- 真的就一个按钮.... open-type="getUserInfo"：点击获取用户的信息 handleGetUserInfo：点击触发事件-->
+<button size="default" open-type="getUserInfo" type="primary" bindgetuserinfo="handleGetUserInfo">登录</button>
+
+```
+
+而且获取用户信息功能也是由微信原生框架提供，指定open-type="getUserInfo"即可
+
+绑定事件bindgetuserinfo="handleGetUserInfo"，在这个函数中可以获取到用户信息
+
+```js
+/* 点击登录按钮触发的函数 因为按钮类型为 open-type="getUserInfo" 会将用户的信息存放在该登录按钮的detail中 */
+  handleGetUserInfo(e){
+    //console.log(e);
+    const {userInfo} = e.detail
+    // 用户登录信息保存到缓存中
+    wx.setStorage({
+      key: 'userinfo',
+      data: userInfo
+    })
+    // 返回上一个页面
+    wx.navigateBack({
+      delta: 1
+    })
+  }
+```
+
+获取到用户信息后需要将用户信息存储到Storage中，方便其他页面使用！
+
+用户信息数据格式如下：
+
+```json
+{
+	"nickName": "java.util.Man",
+	"gender": 1,
+	"language": "zh_CN",
+	"city": "Linyi",
+	"province": "Shandong",
+	"country": "China",
+	"avatarUrl": "https://thirdwx.qlogo.cn/mmopen/vi_32/S7r59dLHPO0Xo5fO14HhAP6ibsicziaAC8UkTLKt7e7wtu6XJia6A7WickLegse78Ye33dKHtwBicMviauwjPSGuiacHJg/132"
+}
+```
+
+还有样式代码👇
+
+```css
+page{
+    /* flex 布局 水平垂直居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+
+
+### 我的发布页 & 我的收藏页
+
+这俩页面基本上一样，一块说（其实拿的搜索那的代码😂）
+
+**此处参考 分页面介绍-搜索页-分区域介绍-搜索结果页，那个更详细**！！！
+
+#### 布局
+
+![image-20201030153218791](https://gitee.com//lifazhan/mypics/raw/master/img/20201030153218.png)
+
+![image-20201030153235583](https://gitee.com//lifazhan/mypics/raw/master/img/20201030153235.png)
+
+两个页面进入是布局完全一致，在对菜谱列表中的项目长按时会不一样
+
+![image-20201030153334728](https://gitee.com//lifazhan/mypics/raw/master/img/20201030153334.png)
+
+![image-20201030153356174](https://gitee.com//lifazhan/mypics/raw/master/img/20201030153356.png)
+
+#### 分区域介绍
+
+##### 列表显示
+
+两个页面列表显示代码基本一致，唯一的区别就是数据不同，我的收藏页面是当前用户收藏的菜谱列表，我的发布页面时当前用户发布的菜谱列表
+
+因此在页面代码和样式代码上，两个也买你没有区别
+
+页面代码：
+
+```html
+<view class="search-value">
+    <!-- 循环渲染出列表的每一项 handleLongPress：绑定的长按事件 data-id="{{item.id}}：传递参数菜谱id-->
+    <view class="search-value-item" wx:for="{{menuList}}" wx:key="item.id" bind:longpress="handleLongPress" data-id="{{item.id}}">
+        <!-- 单击跳转 -->
+        <navigator url="/pages/menucontent/menucontent?id={{item.id}}">
+            <!-- 菜谱封面图  -->
+            <!-- aspectFill：缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。 -->
+            <image src="{{item.img}}" mode="aspectFill" />
+            <!-- 菜谱内容部分 -->
+            <view class="item-content">
+                <!-- 标题 -->
+                <view class="item-title">{{item.title}}</view>
+                <!-- 简介 -->
+                <view class="item-introd">{{item.introd}}</view>
+                <!-- 用户昵称 -->
+                <view class="item-user iconfont icon-user">{{item.nickname}}</view>
+                <!-- 浏览收藏信息部分 -->
+                <view class="item-scan">
+                    <!-- 收藏 -->
+                    <text class="iconfont icon-heart">{{item.favorites}}</text>
+                    <!-- 俩空格 距离产生美 -->
+                    <text decode>&nbsp;&nbsp;</text>
+                    <!-- 浏览量 -->
+                    <text class="iconfont icon-see">{{item.pageviews}}</text>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>
+```
+
+样式代码：
+
+```css
+/* pages/mypublish/mypublish.wxss */
+/* pages/mypublish/mypublish.wxss */
+/* 菜谱列表每一项整体的样式 */
+.search-value-item {
+  /* 宽度给 给满 高度20rpx */
+  width: 100%;
+  height: 200rpx;
+}
+.search-value-item navigator {
+  /* flex布局 */
+  display: flex;
+}
+/* 封面图片样式 */
+.search-value-item navigator image {
+  /* 宽度 高度 左侧边距 上边距 */
+  width: 360rpx;
+  height: 180rpx;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+}
+/* 内容部分整体 */
+.item-content {
+  /* 左边距 即距离左侧封面图的距离 */
+  padding-left: 30rpx;
+}
+/* 标题 */
+.item-title {
+  /* 上边距 字体大小 粗细 */
+  padding-top: 20rpx;
+  font-size: 38rpx;
+  font-weight: 700;
+}
+/* 简介部分 */
+.item-introd {
+  /* 上边距 字体大小 */
+  padding-top: 15rpx;
+  font-size: 24rpx;
+}
+/* 用户昵称部分 */
+.item-user {
+  /* 上边距 字体大小 */
+  padding-top: 15rpx;
+  font-size: 28rpx;
+}
+/* 浏览信息部分  .item-scan样式下 第一个 text：即收藏量*/
+.item-scan text:nth-child(1) {
+  padding-top: 15rpx;
+  font-size: 24rpx;
+  color: #bb2205;
+}
+/* 浏览信息部分  .item-scan样式下 最后一个 text：即浏览量*/
+.item-scan text:nth-child(3) {
+  padding-top: 15rpx;
+  font-size: 24rpx;
+  color: #2d6187;
+}
+
+```
+
+两个页面的区别都集中在js文件中，如下：
+
+* 页面加载时获取的数据不同
+* 长按事件绑定的bind:longpress="handleLongPress" 函数的实现不同
+
+##### 我的收藏页（数据加载和长按功能）
+
+在data对象中准备页面需要使用的数据
+
+```js
+/**
+   * 页面的初始数据
+   */
+  data: {
+    // 查询到菜谱数组
+    menuList: [],
+    // 用户昵称
+    nickName: ''
+  },
+```
+
+编写页面获取我的收藏数据的函数
+
+```js
+  /**
+   * 获取用户收藏的列表
+   */
+  async getMyStarList(){
+    /* 查询参数 用户昵称 */
+    const params = {
+      nickName : this.data.nickName
+    }
+
+    /* 发起请求 */
+    const {data:response} = await http.get('/mine/star',{params})
+    console.log(response);
+    if(response.code === 1000){
+      // 标题简介部分 太长了就用... 代替
+      response.data.map(item => {
+        /* 简介最多为8个字符 */
+        item.introd = simplifyStr(item.introd,8);
+        /* 标题最多为7个字符 */
+        item.title = simplifyStr(item.title,7)
+      })
+      /* 设置数据 */
+      this.setData({
+        menuList:response.data
+      })
+    }
+  },
+```
+
+参考搜索页部分
+
+获取函数需要在页面加载时就执行，因此onLoad函数如下：
+
+```js
+/**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 获取用户信息
+    const userinfo = wx.getStorageSync("userinfo")
+    /* 获取设置用户昵称 */
+    const nickName = userinfo.nickName
+    this.setData({
+      nickName
+    })
+
+    // 查找用户收藏列表
+    this.getMyStarList()
+  },
+```
+
+用户在长按某一菜谱时，提示用户是否取消收藏
+
+![image-20201030160020443](https://gitee.com//lifazhan/mypics/raw/master/img/20201030160020.png)
+
+```js
+// 用户长按某一菜谱时触发
+  handleLongPress(e){
+    // 用户长按的菜谱id
+    const menuId = e.currentTarget.dataset.id
+    /* 在下面的回调函数中使用原来的this时改为that */
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认取消收藏该菜谱？',
+      success (res) {
+        if (res.confirm) {
+          // 调用取消收藏
+          const result = that.cancelStar(menuId)
+          if(result){
+            // 删除成功
+            that.showToast('取消收藏成功')
+          }else{
+            // 删除失败
+            that.showToast('取消收藏失败')
+          }
+        } else if (res.cancel) {
+        }
+      }
+    })
+  },
+```
+
+* showToast 函数时定义的一个简单的显示提示框的函数，代码如下：
+
+  ```js
+    // 展示提示
+    showToast(title){
+      wx.showToast({
+        title,
+        icon: 'none',
+        duration: 2000
+      })
+    },
+  ```
+
+* cancelStar(menuId) 函数时在用户点击确定时向后端发起取消收藏的方法，代码如下：
+
+  ```js
+  // 取消收藏
+    async cancelStar(menuId){
+      /* 请求参数 */
+      const params = {
+        menuId,
+        nickName:this.data.nickName
+      }
+  
+      /* 发起请求 */
+      const {data:response} = await http.get('/mine/cancelStar',{params})
+      console.log(response);
+        // 成功取消时 response.data 为true
+      if(response.code === 1000){
+        if(response.data)// 成功取消收藏刷新列表
+              this.getMyStarList()
+        return response.data
+      }
+  
+      return false
+  
+    },
+  ```
+
+##### 我的发布页（数据加载和长按功能）
+
+在data对象中准备页面需要使用的数据
+
+```js
+/**
+   * 页面的初始数据
+   */
+  data: {
+    // 查询到的数组
+    menuList: [],
+    // 用户昵称
+    nickName: ''
+  },
+```
+
+编写页面获取我的发布数据的函数
+
+```js
+/**
+   * 获取用户发布的列表
+   */
+  async getMyPublishList(){
+    /* 请求参数 */
+    const params = {
+      /* 用户昵称 */
+      nickName : this.data.nickName
+    }
+    /* 发起请求 */
+    const {data:response} = await http.get('/mine/publish',{params})
+    console.log(response);
+    if(response.code === 1000){
+      // 标题和简介部分 太长了就用... 代替，否则会产生样式问题
+      response.data.map(item => {
+        /* 处理简介 只保留8个字符 */
+        item.introd = simplifyStr(item.introd,8);
+        /* 处理标题 只保留7个字符*/
+        item.title = simplifyStr(item.title,7)
+      })
+      /* 设置菜谱列表 */
+      this.setData({
+        menuList:response.data
+      })
+    }
+  },
+```
+
+参考搜索页部分
+
+获取函数需要在页面加载时就执行，因此onLoad函数如下：
+
+```js
+/**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 获取用户信息
+    const userinfo = wx.getStorageSync("userinfo")
+    /* 获取并设置用户名 */
+    const nickName = userinfo.nickName
+    this.setData({
+      nickName
+    })
+
+    // 查找用户发布列表
+    this.getMyPublishList()
+  },
+```
+
+用户在长按某一菜谱时，显示可以操作的功能
+
+![image-20201030160039194](https://gitee.com//lifazhan/mypics/raw/master/img/20201030160039.png)
+
+```js
+// 用户长按某一菜谱时触发
+  handleLongPress(e){
+    // 用户长按的菜谱id
+    const menuId = e.currentTarget.dataset.id
+    /* 下面在回调函数中使用原来this的方法时改用that */
+    let that = this
+    /* 展示下方功能选择框 */
+    wx.showActionSheet({
+      itemList: ['删除', '编辑'],
+      success (res) {
+        console.log(res.tapIndex)
+        // 根据索引判断用户点击的那个选项
+        if(res.tapIndex === 0){
+          // 执行删除询问
+          wx.showModal({
+            title: '提示',
+            content: '确认删除您发布的该菜谱吗？',
+            success (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                // 用户选择确认删除，调用删除方法
+                that.deletePublishMenu(menuId)
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }else{
+          // 执行编辑逻辑
+          // 携带菜谱的id跳转到菜谱编辑页面
+          // 跳转的目标页时tabbar里面的 要用reLaunch
+          wx.reLaunch({
+            url: '/pages/publish/publish?menuId='+menuId
+          });
+        }
+      },
+      fail (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+```
+
+用户点击编辑时，会携带菜谱的id跳转到发布页面
+
+用户点击删除时，执行 deletePublishMenu(menuId) 方法，向后端发起删除请求
+
+```js
+// 删除发布的菜谱
+  async deletePublishMenu(menuId){
+    /* 请求参数 */
+    const params = {
+      /* 菜谱id */
+      menuId
+    }
+    /* 发起请求 */
+    const {data:response} = await http.get('/mine/deletePublish',{params})
+
+    if(response.code === 1000){
+      /* 删除成功data为true */
+      if(response.data){
+        /* 展示成功提示 */
+        wx.showToast({
+          title: '删除成功',
+          icon: 'success',
+          duration: 2000
+        })
+        // 刷新列表
+        this.getMyPublishList()
+        return
+      }
+    }
+
+    wx.showToast({
+      title: '删除失败',
+      icon: 'none',
+      duration: 2000
+    })
+  },
+```
+
+## 其他
+
+### 项目运行注意
+
+**不能运行再看，应该不会出现**
+
+![image-20201030161022027](https://gitee.com//lifazhan/mypics/raw/master/img/20201030161022.png)
+
+![image-20201030161249144](https://gitee.com//lifazhan/mypics/raw/master/img/20201030161249.png)
