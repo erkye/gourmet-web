@@ -8,6 +8,8 @@
 
 ### 微信小程序端运行
 
+前提：本地机器安装了Node.js
+
 克隆完前端微信小程序的项目之后，导入到微信小程序开发者工具，修改为自己的AppId（必须）
 
 ![image-20201118102320903](https://gitee.com//lifazhan/mypics/raw/master/img/20201118102328.png)
