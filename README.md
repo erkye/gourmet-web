@@ -1,5 +1,37 @@
 # 菜谱分享小程序开发文档
 
+## 如何运行
+
+### 后端运行
+
+克隆项目之后，打开IDEA或者Ecplise，导入Maven项目（前提，本地已经安装JDK，Maven），运行Main方法即可
+
+### 微信小程序端运行
+
+克隆完前端微信小程序的项目之后，导入到微信小程序开发者工具，修改为自己的AppId（必须）
+
+![image-20201118102320903](https://gitee.com//lifazhan/mypics/raw/master/img/20201118102328.png)
+
+设置不校验合法域名
+
+![image-20201118102410986](https://gitee.com//lifazhan/mypics/raw/master/img/20201118102411.png)
+
+
+
+构建npm
+
+![image-20201118102524615](https://gitee.com//lifazhan/mypics/raw/master/img/20201118102524.png)
+
+等待构建完成即可运行
+
+默认请求的后端地址是我的服务器地址，随时可能会无法请求，如果出现构建完成页面中没有数据的情况，请在本地创建数据库，并启动本地的后端项目，并将微信小程序项目中的resquest/http.js 里面的请求地址修改为本地地址
+
+```js
+const serverIp = "http://127.0.0.1:3000/api"
+```
+
+![image-20201118103126637](https://gitee.com//lifazhan/mypics/raw/master/img/20201118103126.png)
+
 ## 项目概览
 
 项目分为前端（微信小程序端）和后端项目，前端项目名称为 [gourmet-web](https://gitee.com/lifazhan/gourmet-web)，后端项目名称为 [gourmet-api](https://gitee.com/lifazhan/gourmet-api)。
